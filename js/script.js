@@ -6,13 +6,28 @@ let URL2 = "https://quotes.rest/qod.json?language=en" //CONNECTED!
 let URL = "https://random-interview.herokuapp.com/question/random" //CONNECTED!
 
 //CONSTANTS//
-
+let userInput = document.querySelector("input");
 
 //ELEMENTS//
-let $list = $('')
+let $form = $("form")
+let $list = $("#list")
+let $apiQuote = $('#apiquote')
 
 //ONCLICK EVENTS//
+$("form").on("click", "button", function(data) {   
+    event.preventDefault();
+    let newTask = document.createElement("p");
+    newTask.innerHTML = userInput.value;
+    console.log(userInput.value)
+    $list.append(newTask);
+    userInput.value = "";
+    console.log("we got the onclick");
+});
 
+$apiQuote.on("click", function() {
+    $("#saved").html("hello");
+    console.log("clicked the API quote");
+});
 
 //FUNCTIONS//
 
@@ -22,7 +37,7 @@ let $list = $('')
 //APIs for quotes are connected//
 ////////////////////////////////////////
 // $.ajax(URL).then(function(data) {
-//     $('p').text(data.question)
+//     $apiQuote.text(data.question)
 //     console.log(data.question)
 //     console.log(URL)
 // },function(error) {
@@ -30,7 +45,7 @@ let $list = $('')
 // });
 
 // $.ajax(URL2).then(function(data) {
-//     $('p').text(data.contents.quotes[0].quote + " - " + data.contents.quotes[0].author)
+//     $apiQuote.text(data.contents.quotes[0].quote + " - " + data.contents.quotes[0].author)
 //     console.log(data.contents)
 //     console.log(data.contents.quotes[0].quote)
 //     console.log(URL2)
@@ -38,14 +53,14 @@ let $list = $('')
 //     console.log("error")
 // });
 
-// $.ajax(URL3).then(function (data) {
-//     $('p').text(data.content + " - " + data.author)
-//     console.log(data)
-//     console.log(data.content)
-//     console.log(URL3)
-// }, function (error) {
-//     console.log("error")
-// });
+$.ajax(URL3).then(function (data) {
+    $apiQuote.text(data.content + " - " + data.author)
+    console.log(data)
+    console.log(data.content)
+    console.log(URL3)
+}, function (error) {
+    console.log("error")
+});
 
 
 
