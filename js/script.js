@@ -5,11 +5,14 @@ let URL2 = "https://quotes.rest/qod.json?language=en" //CONNECTED!
 
 let URL = "https://random-interview.herokuapp.com/question/random" //CONNECTED!
 
+
+
 //CONSTANTS//
 const savedListStr = "savedList";
 const savedQuotesStr = "savedQuote";
 const savedQuestionsStr = "savedQuestion";
 let storage = localStorage;
+//storage.clear();
 let userInput = document.querySelector("input");
 let savedList = JSON.parse(storage.getItem("savedList")) || [];
 let savedQuotes = JSON.parse(storage.getItem("savedQuote")) || [];
@@ -28,7 +31,7 @@ $tfoot.on("click", "button", function (data) {
     if (userInput.value) {
 
 
-        let newTask = `<tr class="${savedListStr}"><td class="list"><p>${userInput.value}<p></td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`;
+        let newTask = `<tr class="${savedListStr}"><td class="list"><p class="${savedListStr}">${userInput.value}<p></td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`;
         //console.log(userInput.value)
         $todo.append(newTask);
         savedList.push(userInput.value);
@@ -49,7 +52,6 @@ $apiQuote.on("click", function (quote) {
         $savedAlert.fadeOut(3000);
         //console.log("this quote is here already")
     } else {
-        //let storeQuote = `<tr list="quote" order="${savedQuotes.length}"><td><p>${quote.target.innerText}<p></td><td><button id="remove">X</button></td></tr>`;
         savedQuotes.push(quote.target.innerText);
         //console.log(quote.target)
         //console.log(quote.target.innerText);
@@ -67,20 +69,16 @@ $("tbody").on("click", "#remove", function (evt) {
     if (this.closest("tr").getAttribute("class") === savedListStr) {
         savedList.splice(savedList.indexOf(this.closest("tr").firstElementChild.firstElementChild.innerText), 1);
         saveToStorage(savedList, savedListStr);
-        $(this)
-            .closest("tr")
-            .fadeOut(1000, function () {
-                $(this).remove();
-            });
+        $(this).closest("tr").remove();
     } else if (this.closest("tr").getAttribute("class") === savedQuotesStr) {
-        savedQuotes.splice(savedQuotes.indexOf(this.closest("tr").firstElementChild.firstElementChild.innerText), 1);
+        $(this).closest("tr").remove();
+        }
+        let allQuoteTags = document.querySelectorAll(`p.${savedQuotesStr}`);
+        savedQuotes = [];
+        allQuoteTags.forEach(function(quote) {
+            savedQuotes.push(quote.innerText);
+        });
         saveToStorage(savedQuotes, savedQuotesStr);
-        $(this)
-            .closest("tr")
-            .fadeOut(1000, function () {
-                $(this).remove();
-            });
-    }
 });
 
 //edit on click
@@ -90,23 +88,16 @@ $("tbody").on("click", "#edit", function (evt) {
     evt.target.setAttribute("disabled", "true");
     //console.log(evt.target.closest("tr").firstElementChild.innerText)
     let editInput = `<td><input id="enter" type="text" value="${evt.target.closest("tr").firstElementChild.innerText}"></td>`;
+    console.log(evt.target.closest("tr").firstElementChild.innerHTML)
     evt.target.closest("tr").firstElementChild.innerHTML = editInput;
     $("tbody").on("keypress", "input#enter", function(evt) {
         if (evt.key === "Enter") {
             event.preventDefault();
             console.log(evt.target.value);
-            console.log(evt.target.parentNode)
-            $('td#list').text = evt.target.value;
-            console.log(evt.target.parentNode)
-
-            //let newEdit = document.createElement("td");
-            //newEdit.innerHTML = evt.target.value;
-            //console.log(newEdit.innerHTML)
-            //evt.target.closest("tr").firstChild.innerHTML = `<td>${evt.target.value}</td>`;
-            //evt.target.closest("tr").firstElementChild.innerHTML = newEdit.innerHTML;
-            //console.log(evt.target.innerHTML)
-            
+            console.log(evt.target.parentNode.innerHTML);
+            evt.target.parentNode.innerHTML = `<p>${evt.target.value}</p>`
             $('button#edit').removeAttr("disabled");
+            
         }
     });
 });
@@ -116,14 +107,14 @@ $("tbody").on("click", "#edit", function (evt) {
 function populateList(list, listStr) {
     if (list.length > 0) {
         list.forEach(function (item) {
-            $("tbody").append(`<tr class="${listStr}"><td><p>${item}</p></td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`)
+            $("tbody").append(`<tr class="${listStr}"><td><p class="${listStr}">${item}</p></td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`)
         });
     }
 }
 function populateListNoEdit(list, listStr) {
     if (list.length > 0) {
         list.forEach(function (item) {
-            $("tbody").append(`<tr class="${listStr}"><td><p>${item}</p></td><td><button id="remove">X</button></td></tr>`)
+            $("tbody").append(`<tr class="${listStr}"><td><p class="${listStr}">${item}</p></td><td><button id="remove">X</button></td></tr>`);
         });
     }
 }
@@ -134,7 +125,7 @@ function saveToStorage(array, arrayStr) {
 }
 
 
-// storage.clear();
+
 
 
 
