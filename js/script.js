@@ -7,26 +7,44 @@ let URL = "https://random-interview.herokuapp.com/question/random" //CONNECTED!
 
 //CONSTANTS//
 let userInput = document.querySelector("input");
+let savedQuotes = [];
+let savedQuestions = [];
 
 //ELEMENTS//
-let $form = $("form")
-let $list = $("#list")
-let $apiQuote = $('#apiquote')
+let $form = $("form");
+let $list = $("tbody");
+let $apiQuote = $('#apiquote');
+let $saved = $("#saved");
 
 //ONCLICK EVENTS//
+//add to the list onclick
 $("form").on("click", "button", function(data) {   
     event.preventDefault();
     let newTask = document.createElement("p");
-    newTask.innerHTML = userInput.value;
+    newTask.innerHTML = `<tr><td>${userInput.value}</td></tr>`;
     console.log(userInput.value)
     $list.append(newTask);
     userInput.value = "";
     console.log("we got the onclick");
 });
 
-$apiQuote.on("click", function() {
-    $("#saved").html("hello");
-    console.log("clicked the API quote");
+//Save quote onclick
+$apiQuote.on("click", function(quote) {
+    if (savedQuotes.includes(quote.target.innerText)) {
+        $saved.fadeIn(1000, function() {
+            $saved.html("Quote already saved!");
+        })
+        $saved.fadeOut(3000);
+        //console.log("this quote is here already")
+    } else {
+        savedQuotes.push(quote.target.innerText);
+        //console.log(quote.target.innerText);
+        $saved.fadeIn(1000, function() {
+            $saved.html("Quote saved!");
+        })
+        $saved.fadeOut(3000);
+    } 
+    //console.log("clicked the API quote");
 });
 
 //FUNCTIONS//
@@ -62,6 +80,11 @@ $.ajax(URL3).then(function (data) {
     console.log("error")
 });
 
+////////////////////
+//FEATURES TO ADD//
+////////////////////
+
+//Remove the branding so it only shows when the quote comes from they said so
 
 
 /////////////////////////////////////

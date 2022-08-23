@@ -13,32 +13,48 @@
 </head>
 
 
-
 <body>
     <nav>
     </nav>
     <h1>Tasks</h1>
-    <h2>To-Do:</h2>
-    <div id="list">
-    </div>
-    <form>
-        <label> 
-            <input type="text" placeholder="Enter a task">
-            <button type="submit">Add Task</button>
-        </label>
-    </form>
-    
+
+    <table>
+        <thead>
+            <tr>
+                <th><h2>To Do</h2></th>
+            </tr>
+        </thead>
+        <tbody>   
+            <tr>
+                <td>test</td>
+                <td><button id="edit">edit</button></td>
+                <td><button id="remove">X</button></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>
+                    <form>
+                    <input type="text" placeholder="Enter a task">
+                    <button type="submit">Add Task</button>
+                    </form>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
     <div id="quote">
         <p id="saved"></p>
         <p id="apiquote"></p>
     </div>
-    
+
 </body>
 
 <span style="z-index:50;font-size:0.9em; font-weight: bold;">
-    <img src="https://theysaidso.com/branding/theysaidso.png" height="20" width="20" alt="theysaidso.com"/>
-    <a href="https://theysaidso.com" title="Powered by quotes from theysaidso.com" style="color: #ccc; margin-left: 4px; vertical-align: middle;">
-      They Said So®
+    <img src="https://theysaidso.com/branding/theysaidso.png" height="20" width="20" alt="theysaidso.com" />
+    <a href="https://theysaidso.com" title="Powered by quotes from theysaidso.com"
+        style="color: #ccc; margin-left: 4px; vertical-align: middle;">
+        They Said So®
     </a>
 </span>
 
