@@ -6,49 +6,81 @@ let URL2 = "https://quotes.rest/qod.json?language=en" //CONNECTED!
 let URL = "https://random-interview.herokuapp.com/question/random" //CONNECTED!
 
 //CONSTANTS//
+let storage = localStorage;
 let userInput = document.querySelector("input");
-let savedQuotes = [];
+let savedList = JSON.parse(storage.getItem("savedList")) || [];
+let savedQuotes = JSON.parse(storage.getItem("savedQuote")) || [];
 let savedQuestions = [];
 
+//storage.clear();
+
 //ELEMENTS//
-let $form = $("form");
-let $list = $("tbody");
+let $tfoot = $("tfoot");
+let $todo = $("tbody");
 let $apiQuote = $('#apiquote');
-let $saved = $("#saved");
+let $savedAlert = $("#saved");
 
 //ONCLICK EVENTS//
 //add to the list onclick
-$("form").on("click", "button", function(data) {   
+$tfoot.on("click", "button", function (data) {
     event.preventDefault();
-    let newTask = document.createElement("p");
-    newTask.innerHTML = `<tr><td>${userInput.value}</td></tr>`;
-    console.log(userInput.value)
-    $list.append(newTask);
-    userInput.value = "";
+    if (userInput.value) {
+        let newTask = `<tr order="${savedList.length}"><td>${userInput.value}</td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`;
+        console.log(userInput.value)
+        $todo.append(newTask);
+        savedList.push(newTask);
+        storage.setItem("savedList", JSON.stringify(savedList));
+        userInput.value = "";
+    } else {
+        return;
+    }
     console.log("we got the onclick");
 });
 
 //Save quote onclick
-$apiQuote.on("click", function(quote) {
+$apiQuote.on("click", function (quote) {
     if (savedQuotes.includes(quote.target.innerText)) {
-        $saved.fadeIn(1000, function() {
-            $saved.html("Quote already saved!");
-        })
-        $saved.fadeOut(3000);
+        $savedAlert.html("Quote already saved!");
+        $savedAlert.fadeIn(1000);
+        $savedAlert.fadeOut(3000);
         //console.log("this quote is here already")
     } else {
         savedQuotes.push(quote.target.innerText);
+        console.log(quote.target)
         //console.log(quote.target.innerText);
-        $saved.fadeIn(1000, function() {
-            $saved.html("Quote saved!");
-        })
-        $saved.fadeOut(3000);
-    } 
+        //storage.setItem("savedQuote", JSON.stringify(savedQuotes));
+        $savedAlert.html("Quote saved!");
+        $savedAlert.fadeIn(1000);
+        $savedAlert.fadeOut(3000);
+
+    }
     //console.log("clicked the API quote");
 });
 
-//FUNCTIONS//
+//remove on click
+$("tbody").on("click", "#remove", function (evt) {
+    savedList.splice(this.getAttribute("order"), 1);
+    storage.setItem("savedList", JSON.stringify(savedList));
+    $(this)
+        .closest("tr")
+        .fadeOut(1000, function () {
+            $(this).remove();
+        });
+});
 
+//FUNCTIONS//
+//populates the list that I want to populate
+function populateList(list) {
+    if (list.length > 0) {
+        list.forEach(function (item) {
+            $("tbody").append(item);
+        });
+    }
+}
+
+
+
+populateList(savedList);
 
 
 ////////////////////////////////////////
