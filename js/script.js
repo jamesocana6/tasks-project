@@ -116,8 +116,14 @@ $("tbody").on("click", "#edit", function (evt) {
 function populateList(list, listStr) {
     if (list.length > 0) {
         list.forEach(function (item) {
-            //$("tbody").append(item);
             $("tbody").append(`<tr class="${listStr}"><td><p>${item}</p></td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`)
+        });
+    }
+}
+function populateListNoEdit(list, listStr) {
+    if (list.length > 0) {
+        list.forEach(function (item) {
+            $("tbody").append(`<tr class="${listStr}"><td><p>${item}</p></td><td><button id="remove">X</button></td></tr>`)
         });
     }
 }

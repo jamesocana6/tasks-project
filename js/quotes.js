@@ -1,2 +1,1 @@
-populateList(savedQuotes, savedQuotesStr);
-$("#edit").remove();
+populateListNoEdit(savedQuotes, savedQuotesStr);
