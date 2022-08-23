@@ -45,10 +45,11 @@ $apiQuote.on("click", function (quote) {
         $savedAlert.fadeOut(3000);
         //console.log("this quote is here already")
     } else {
-        savedQuotes.push(quote.target.innerText);
+        let storeQuote = `<tr order="${savedQuotes.length}"><td>${quote.target.innerText}</td><td><button id="remove">X</button></td></tr>`;
+        savedQuotes.push(storeQuote);
         console.log(quote.target)
         //console.log(quote.target.innerText);
-        //storage.setItem("savedQuote", JSON.stringify(savedQuotes));
+        storage.setItem("savedQuote", JSON.stringify(savedQuotes));
         $savedAlert.html("Quote saved!");
         $savedAlert.fadeIn(1000);
         $savedAlert.fadeOut(3000);
