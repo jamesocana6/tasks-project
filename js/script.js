@@ -26,16 +26,19 @@ let $savedAlert = $("#saved");
 $tfoot.on("click", "button", function (data) {
     event.preventDefault();
     if (userInput.value) {
-        let newTask = `<tr list="todo" order="${savedList.length}"><td class="list">${userInput.value}</td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`;
-        console.log(userInput.value)
+
+
+        let newTask = `<tr class="${savedListStr}"><td class="list"><p>${userInput.value}<p></td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`;
+        //console.log(userInput.value)
         $todo.append(newTask);
-        savedList.push(newTask);
+        savedList.push(userInput.value);
+        // savedList.push(newTask);
         saveToStorage(savedList, savedListStr);
         userInput.value = "";
     } else {
         return;
     }
-    console.log("we got the onclick");
+    //console.log("we got the onclick");
 });
 
 //Save quote onclick
@@ -46,9 +49,9 @@ $apiQuote.on("click", function (quote) {
         $savedAlert.fadeOut(3000);
         //console.log("this quote is here already")
     } else {
-        let storeQuote = `<tr list="quote" order="${savedQuotes.length}"><td>${quote.target.innerText}</td><td><button id="remove">X</button></td></tr>`;
-        savedQuotes.push(storeQuote);
-        console.log(quote.target)
+        //let storeQuote = `<tr list="quote" order="${savedQuotes.length}"><td><p>${quote.target.innerText}<p></td><td><button id="remove">X</button></td></tr>`;
+        savedQuotes.push(quote.target.innerText);
+        //console.log(quote.target)
         //console.log(quote.target.innerText);
         saveToStorage(savedQuotes, savedQuotesStr);
         $savedAlert.html("Quote saved!");
@@ -61,16 +64,16 @@ $apiQuote.on("click", function (quote) {
 
 //remove on click
 $("tbody").on("click", "#remove", function (evt) {
-    if (this.closest("tr").getAttribute("list") === "todo") {
-        savedList.splice(this.getAttribute("order"), 1);
+    if (this.closest("tr").getAttribute("class") === savedListStr) {
+        savedList.splice(savedList.indexOf(this.closest("tr").firstElementChild.firstElementChild.innerText), 1);
         saveToStorage(savedList, savedListStr);
         $(this)
             .closest("tr")
             .fadeOut(1000, function () {
                 $(this).remove();
             });
-    } else if (this.closest("tr").getAttribute("list") === "quote") {
-        savedQuotes.splice(this.getAttribute("order"), 1);
+    } else if (this.closest("tr").getAttribute("class") === savedQuotesStr) {
+        savedQuotes.splice(savedQuotes.indexOf(this.closest("tr").firstElementChild.firstElementChild.innerText), 1);
         saveToStorage(savedQuotes, savedQuotesStr);
         $(this)
             .closest("tr")
@@ -82,16 +85,39 @@ $("tbody").on("click", "#remove", function (evt) {
 
 //edit on click
 $("tbody").on("click", "#edit", function (evt) {
+    event.preventDefault();
+    console.log(evt.target);
+    evt.target.setAttribute("disabled", "true");
     //console.log(evt.target.closest("tr").firstElementChild.innerText)
+    let editInput = `<td><input id="enter" type="text" value="${evt.target.closest("tr").firstElementChild.innerText}"></td>`;
+    evt.target.closest("tr").firstElementChild.innerHTML = editInput;
+    $("tbody").on("keypress", "input#enter", function(evt) {
+        if (evt.key === "Enter") {
+            event.preventDefault();
+            console.log(evt.target.value);
+            console.log(evt.target.parentNode)
+            $('td#list').text = evt.target.value;
+            console.log(evt.target.parentNode)
 
+            //let newEdit = document.createElement("td");
+            //newEdit.innerHTML = evt.target.value;
+            //console.log(newEdit.innerHTML)
+            //evt.target.closest("tr").firstChild.innerHTML = `<td>${evt.target.value}</td>`;
+            //evt.target.closest("tr").firstElementChild.innerHTML = newEdit.innerHTML;
+            //console.log(evt.target.innerHTML)
+            
+            $('button#edit').removeAttr("disabled");
+        }
+    });
 });
 
 //FUNCTIONS//
 //populates the list that I want to populate
-function populateList(list) {
+function populateList(list, listStr) {
     if (list.length > 0) {
         list.forEach(function (item) {
-            $("tbody").append(item);
+            //$("tbody").append(item);
+            $("tbody").append(`<tr class="${listStr}"><td><p>${item}</p></td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`)
         });
     }
 }
@@ -100,7 +126,9 @@ function populateList(list) {
 function saveToStorage(array, arrayStr) {
     storage.setItem(arrayStr, JSON.stringify(array));
 }
-//storage.clear();
+
+
+// storage.clear();
 
 
 

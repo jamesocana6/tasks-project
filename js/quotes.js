@@ -1,1 +1,2 @@
-populateList(savedQuotes);
+populateList(savedQuotes, savedQuotesStr);
+$("#edit").remove();

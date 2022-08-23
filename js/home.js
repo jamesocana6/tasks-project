@@ -1,1 +1,1 @@
-populateList(savedList);
+populateList(savedList, savedListStr);
