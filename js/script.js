@@ -6,6 +6,7 @@ let URL2 = "https://quotes.rest/qod.json?language=en" //CONNECTED!
 let URL = "https://random-interview.herokuapp.com/question/random" //CONNECTED!
 
 //CONSTANTS//
+
 let storage = localStorage;
 let userInput = document.querySelector("input");
 let savedList = JSON.parse(storage.getItem("savedList")) || [];
@@ -25,7 +26,7 @@ let $savedAlert = $("#saved");
 $tfoot.on("click", "button", function (data) {
     event.preventDefault();
     if (userInput.value) {
-        let newTask = `<tr order="${savedList.length}"><td>${userInput.value}</td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`;
+        let newTask = `<tr list="todo" order="${savedList.length}"><td>${userInput.value}</td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`;
         console.log(userInput.value)
         $todo.append(newTask);
         savedList.push(newTask);
@@ -45,7 +46,7 @@ $apiQuote.on("click", function (quote) {
         $savedAlert.fadeOut(3000);
         //console.log("this quote is here already")
     } else {
-        let storeQuote = `<tr order="${savedQuotes.length}"><td>${quote.target.innerText}</td><td><button id="remove">X</button></td></tr>`;
+        let storeQuote = `<tr list="quote" order="${savedQuotes.length}"><td>${quote.target.innerText}</td><td><button id="remove">X</button></td></tr>`;
         savedQuotes.push(storeQuote);
         console.log(quote.target)
         //console.log(quote.target.innerText);
@@ -60,13 +61,23 @@ $apiQuote.on("click", function (quote) {
 
 //remove on click
 $("tbody").on("click", "#remove", function (evt) {
-    savedList.splice(this.getAttribute("order"), 1);
-    storage.setItem("savedList", JSON.stringify(savedList));
-    $(this)
-        .closest("tr")
-        .fadeOut(1000, function () {
-            $(this).remove();
-        });
+    if (this.closest("tr").getAttribute("list") === "todo") {
+        savedList.splice(this.getAttribute("order"), 1);
+        storage.setItem("savedList", JSON.stringify(savedList));
+        $(this)
+            .closest("tr")
+            .fadeOut(1000, function () {
+                $(this).remove();
+            });
+    } else if (this.closest("tr").getAttribute("list") === "quote") {
+        savedQuotes.splice(this.getAttribute("order"), 1);
+        storage.setItem("savedQuote", JSON.stringify(savedQuotes));
+        $(this)
+            .closest("tr")
+            .fadeOut(1000, function () {
+                $(this).remove();
+            });
+    }
 });
 
 //FUNCTIONS//
@@ -81,7 +92,7 @@ function populateList(list) {
 
 
 
-populateList(savedList);
+
 
 
 ////////////////////////////////////////
