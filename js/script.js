@@ -6,14 +6,14 @@ let URL2 = "https://quotes.rest/qod.json?language=en" //CONNECTED!
 let URL = "https://random-interview.herokuapp.com/question/random" //CONNECTED!
 
 //CONSTANTS//
-
+const savedListStr = "savedList";
+const savedQuotesStr = "savedQuote";
+const savedQuestionsStr = "savedQuestion";
 let storage = localStorage;
 let userInput = document.querySelector("input");
 let savedList = JSON.parse(storage.getItem("savedList")) || [];
 let savedQuotes = JSON.parse(storage.getItem("savedQuote")) || [];
-let savedQuestions = [];
-
-//storage.clear();
+let savedQuestions = JSON.parse(storage.getItem("savedQuestion")) || [];
 
 //ELEMENTS//
 let $tfoot = $("tfoot");
@@ -26,11 +26,11 @@ let $savedAlert = $("#saved");
 $tfoot.on("click", "button", function (data) {
     event.preventDefault();
     if (userInput.value) {
-        let newTask = `<tr list="todo" order="${savedList.length}"><td>${userInput.value}</td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`;
+        let newTask = `<tr list="todo" order="${savedList.length}"><td class="list">${userInput.value}</td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`;
         console.log(userInput.value)
         $todo.append(newTask);
         savedList.push(newTask);
-        storage.setItem("savedList", JSON.stringify(savedList));
+        saveToStorage(savedList, savedListStr);
         userInput.value = "";
     } else {
         return;
@@ -50,7 +50,7 @@ $apiQuote.on("click", function (quote) {
         savedQuotes.push(storeQuote);
         console.log(quote.target)
         //console.log(quote.target.innerText);
-        storage.setItem("savedQuote", JSON.stringify(savedQuotes));
+        saveToStorage(savedQuotes, savedQuotesStr);
         $savedAlert.html("Quote saved!");
         $savedAlert.fadeIn(1000);
         $savedAlert.fadeOut(3000);
@@ -63,7 +63,7 @@ $apiQuote.on("click", function (quote) {
 $("tbody").on("click", "#remove", function (evt) {
     if (this.closest("tr").getAttribute("list") === "todo") {
         savedList.splice(this.getAttribute("order"), 1);
-        storage.setItem("savedList", JSON.stringify(savedList));
+        saveToStorage(savedList, savedListStr);
         $(this)
             .closest("tr")
             .fadeOut(1000, function () {
@@ -71,13 +71,19 @@ $("tbody").on("click", "#remove", function (evt) {
             });
     } else if (this.closest("tr").getAttribute("list") === "quote") {
         savedQuotes.splice(this.getAttribute("order"), 1);
-        storage.setItem("savedQuote", JSON.stringify(savedQuotes));
+        saveToStorage(savedQuotes, savedQuotesStr);
         $(this)
             .closest("tr")
             .fadeOut(1000, function () {
                 $(this).remove();
             });
     }
+});
+
+//edit on click
+$("tbody").on("click", "#edit", function (evt) {
+    //console.log(evt.target.closest("tr").firstElementChild.innerText)
+
 });
 
 //FUNCTIONS//
@@ -90,7 +96,11 @@ function populateList(list) {
     }
 }
 
-
+//saves the array into the internal storage
+function saveToStorage(array, arrayStr) {
+    storage.setItem(arrayStr, JSON.stringify(array));
+}
+//storage.clear();
 
 
 
