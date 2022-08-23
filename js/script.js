@@ -67,9 +67,13 @@ $apiQuote.on("click", function (quote) {
 //remove on click
 $("tbody").on("click", "#remove", function (evt) {
     if (this.closest("tr").getAttribute("class") === savedListStr) {
-        savedList.splice(savedList.indexOf(this.closest("tr").firstElementChild.firstElementChild.innerText), 1);
-        saveToStorage(savedList, savedListStr);
         $(this).closest("tr").remove();
+        let allListTags = document.querySelectorAll(`p.${savedListStr}`);
+        savedList = [];
+        allListTags.forEach(function(quote) {
+            savedList.push(quote.innerText);
+        });
+        saveToStorage(savedList, savedListStr);
     } else if (this.closest("tr").getAttribute("class") === savedQuotesStr) {
         $(this).closest("tr").remove();
         }
@@ -123,7 +127,6 @@ function populateListNoEdit(list, listStr) {
 function saveToStorage(array, arrayStr) {
     storage.setItem(arrayStr, JSON.stringify(array));
 }
-
 
 
 
