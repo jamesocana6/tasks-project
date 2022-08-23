@@ -128,9 +128,42 @@ function saveToStorage(array, arrayStr) {
     storage.setItem(arrayStr, JSON.stringify(array));
 }
 
+function setUpQuote() {
+    let idx = Math.floor(Math.random() * 10) + 1;
+    console.log(idx)
+    if (1 <= idx && idx < 6) {
+        $.ajax(URL3).then(function (data) {
+            $apiQuote.text(data.content + " - " + data.author)
+            console.log(data)
+            console.log(data.content)
+            console.log(URL3)
+            $('span').css("display", "none");
+        }, function (error) {
+            console.log("error")
+        });
+    } else if (6 <= idx && idx < 8) {
+        $.ajax(URL).then(function(data) {
+        $apiQuote.text(data.question)
+        console.log(data.question)
+        console.log(URL)    
+        $('span').css("display", "none");
+        },function(error) {
+            console.log("error")
+        });
+    } else {
+        $.ajax(URL2).then(function(data) {
+            $apiQuote.text(data.contents.quotes[0].quote + " - " + data.contents.quotes[0].author)
+            console.log(data.contents)
+            console.log(data.contents.quotes[0].quote)
+            console.log(URL2)
+            $('span').css("display", "");
+        },function(error) {
+            console.log("error")
+        });
+    }
+}
 
-
-
+setUpQuote();
 
 
 ////////////////////////////////////////
@@ -153,14 +186,14 @@ function saveToStorage(array, arrayStr) {
 //     console.log("error")
 // });
 
-$.ajax(URL3).then(function (data) {
-    $apiQuote.text(data.content + " - " + data.author)
-    console.log(data)
-    console.log(data.content)
-    console.log(URL3)
-}, function (error) {
-    console.log("error")
-});
+// $.ajax(URL3).then(function (data) {
+//     $apiQuote.text(data.content + " - " + data.author)
+//     console.log(data)
+//     console.log(data.content)
+//     console.log(URL3)
+// }, function (error) {
+//     console.log("error")
+// });
 
 ////////////////////
 //FEATURES TO ADD//
