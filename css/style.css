@@ -9,14 +9,19 @@ body {
 
 nav {
     display: flex;
-    flex-flow: row wrap;
     justify-content: space-evenly;
     background-color: rgb(117, 214, 117);
     align-items: center;
     height: 50px;
 }
 
-a {
+nav > a {
     text-decoration-line: none;
     color: black;
+    /* padding: 15px 40px; */
+    padding: 2% 3%;
+}
+
+nav > a.disabled {
+    background-color: rgb(68, 126, 68);
 }

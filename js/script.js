@@ -11,6 +11,10 @@ let URL = "https://random-interview.herokuapp.com/question/random" //CONNECTED!
 const savedListStr = "savedList";
 const savedQuotesStr = "savedQuote";
 const savedQuestionsStr = "savedQuestion";
+const date = new Date();
+let day = date.getDate();
+let month = date.getMonth() + 1;
+let year = date.getFullYear();
 let storage = localStorage;
 //storage.clear();
 let userInput = document.querySelector("input");
