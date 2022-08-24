@@ -4,6 +4,21 @@
     font-family: 'Signika Negative', sans-serif;
 }
 
+:root {
+    --theme1-nav: #a6a867;
+    --theme1-border: #51513d;
+    --theme1-nav-active: #e3dc95;
+    --theme1-hover: #e3dcc2;
+    --theme2-nav: #a06cd5;
+    --theme2-border: #102b3f;
+    --theme2-nav-active: #6247aa;
+    --theme2-hover: #e2cfea;
+    --theme3-nav: #8ea4d2;
+    --theme3-border: #49516f;
+    --theme3-nav-active: #6279b8;
+    --theme3-hover: #a1b6e4;
+}
+
 /* TABLE FORMATTING */
 div#test {
     display: flex;
@@ -47,6 +62,10 @@ tbody > tr > td {
     max-width: 500px;
 }
 
+tbody > tr:hover {
+    background-color: rgb(136, 218, 136);
+}
+
 /* NAVIGATION BAR FORMATTING */
 nav {
     display: flex;
@@ -74,7 +93,7 @@ nav > a.disabled {
 div#date {
     display: flex;
     flex-flow: column;
-    color: rgb(117, 214, 117);
+    color: rgb(68, 126, 68);
     font-weight: bold;
     text-align: center;
     width: fit-content;
@@ -98,4 +117,64 @@ span {
     display: flex;
     justify-content: center;
     flex-direction: row;
+}
+
+/* THEME1 */
+nav.theme1 {
+    background-color: var(--theme1-nav);
+}
+nav.theme1 > a.disabled {
+    background-color: var(--theme1-nav-active);
+}
+div#date.theme1 {
+    color: var(--theme1-border);
+}
+tbody.theme1 > tr {
+    border-color: var(--theme1-border);
+}
+table.theme1 {
+    border-color: var(--theme1-border);
+}
+tbody.theme1 > tr:hover {
+    background-color: var(--theme1-hover);
+}
+
+/* THEME2 */
+nav.theme2 {
+    background-color: var(--theme2-nav);
+}
+nav.theme2 > a.disabled {
+    background-color: var(--theme2-nav-active);
+}
+div#date.theme2 {
+    color: var(--theme2-border);
+}
+tbody.theme2 > tr {
+    border-color: var(--theme2-border);
+}
+table.theme2 {
+    border-color: var(--theme2-border);
+}
+tbody.theme2 > tr:hover {
+    background-color: var(--theme2-hover);
+}
+
+/* THEME3 */
+nav.theme3 {
+    background-color: var(--theme3-nav);
+}
+nav.theme3 > a.disabled {
+    background-color: var(--theme3-nav-active);
+}
+div#date.theme3 {
+    color: var(--theme3-border);
+}
+tbody.theme3 > tr {
+    border-color: var(--theme3-border);
+}
+table.theme3 {
+    border-color: var(--theme3-border);
+}
+tbody.theme3 > tr:hover {
+    background-color: var(--theme3-hover);
 }

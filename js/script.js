@@ -148,6 +148,27 @@ function saveToStorage(array, arrayStr) {
     storage.setItem(arrayStr, JSON.stringify(array));
 }
 
+function theme1() {
+    $("nav").attr("class", "theme1");
+    $("div#date").attr("class", "theme1");
+    $("table").attr("class", "theme1");
+    $("tbody").attr("class", "theme1");
+}
+
+function theme2() {
+    $("nav").attr("class", "theme2");
+    $("div#date").attr("class", "theme2");
+    $("table").attr("class", "theme2");
+    $("tbody").attr("class", "theme2");
+}
+
+function theme3() {
+    $("nav").attr("class", "theme3");
+    $("div#date").attr("class", "theme3");
+    $("table").attr("class", "theme3");
+    $("tbody").attr("class", "theme3");
+}
+
 function setUpQuote() {
     let idx = Math.floor(Math.random() * 10) + 1;
     console.log(idx)
@@ -187,6 +208,8 @@ function setUpQuote() {
         });
     }
 }
+
+theme2();
 
 
 ////////////////////////////////////////
