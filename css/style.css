@@ -3,43 +3,43 @@
     margin: 0;
 }
 
-/* body {
-    background-color: green;
-} */
-
 /* TABLE FORMATTING */
+div#test {
+    display: flex;
+    justify-content: center;
+}
+
 table {
     border: 3px solid;
     border-radius: 5px;
     border-color: green;
     border-collapse: collapse;
     margin: 10px;
+    margin-top: 75px;
 }
 
 table#todolist {
     display: grid;
     justify-items: center;
     width: fit-content;
+    max-width: 100%;
 }
 
 tfoot > tr > td > button {
     column-span: 2;
 }
 
-thead , tfoot {
+thead > tr, tfoot {
     display: grid;
     column-count: 1;
     justify-content: center;
     align-items: center;
     border: 0;
+    background-color: aliceblue;
 }
 
-thead > tr {
-    column-span: all;
-    column-count: 1;
-    justify-content: end;
-    justify-items: center;
-    align-items: center;
+th {
+    margin: auto;
 }
 
 tbody > tr > td > button {
@@ -56,6 +56,7 @@ tbody > tr {
 tbody > tr > td {
     padding-left: 10px;
     padding-right: 10px;
+    max-width: 500px;
 }
 
 /* NAVIGATION BAR FORMATTING */
@@ -100,7 +101,16 @@ div#date > p#day {
     font-size: xx-large;
 }
 
+
+/* QUOTE FORMATTING */
 div#quote {
+    margin: 15px;
     display: grid;
     justify-items: center;
+}
+
+span {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
 }
