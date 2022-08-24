@@ -1,1 +1,2 @@
 populateList(savedList, savedListStr);
+setUpQuote();

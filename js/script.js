@@ -169,8 +169,6 @@ function setUpQuote() {
     }
 }
 
-setUpQuote();
-
 
 ////////////////////////////////////////
 //APIs for quotes are connected//

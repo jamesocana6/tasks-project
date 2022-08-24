@@ -25,3 +25,8 @@ nav > a {
 nav > a.disabled {
     background-color: rgb(68, 126, 68);
 }
+
+table.notes {
+    display: flex;
+    flex-flow: row wrap;
+}
