@@ -10,8 +10,11 @@ let URL = "https://random-interview.herokuapp.com/question/random" //CONNECTED!
 //CONSTANTS//
 const savedListStr = "savedList";
 const savedQuotesStr = "savedQuote";
+const savedQuotesStr2 = "savedQuote2";
 const savedQuestionsStr = "savedQuestion";
 const date = new Date();
+let apiText = "";
+let apiAuthor = "";
 let day = date.getDate();
 let month = date.getMonth() + 1;
 let year = date.getFullYear();
@@ -20,6 +23,7 @@ let storage = localStorage;
 let userInput = document.querySelector("input");
 let savedList = JSON.parse(storage.getItem("savedList")) || [];
 let savedQuotes = JSON.parse(storage.getItem("savedQuote")) || [];
+let savedQuotes2 = JSON.parse(storage.getItem("savedQuote2")) || [];
 let savedQuestions = JSON.parse(storage.getItem("savedQuestion")) || [];
 
 //ELEMENTS//
@@ -58,6 +62,8 @@ $apiQuote.on("click", function (quote) {
         $savedAlert.html("Quote saved!");
         $savedAlert.fadeIn(1000);
         $savedAlert.fadeOut(3000);
+        savedQuotes2.push({content: apiText, author: apiAuthor});
+        saveToStorage(savedQuotes2, savedQuotesStr2);
     }
     //console.log("clicked the API quote");
 });
@@ -121,10 +127,17 @@ function populateList(list, listStr) {
         });
     }
 }
-function populateListNoEdit(list, listStr) {
+function populateQuotes(list, listStr) {
     if (list.length > 0) {
         list.forEach(function (item) {
             $("tbody").append(`<tr class="${listStr}"><td><p class="${listStr}">${item}</p></td><td><button id="remove">X</button></td></tr>`);
+        });
+    }
+}
+function populateQuote(list, listStr) {
+    if (list.length > 0) {
+        list.forEach(function (item) {
+            $("tbody").append(`<tr class="${listStr}"><td><p class="${listStr}">${item.content}</p></td><td><p>${item.author}</p></td><td><button id="remove">X</button></td></tr>`);
         });
     }
 }
@@ -140,6 +153,8 @@ function setUpQuote() {
     if (1 <= idx && idx < 7) {
         $.ajax(URL3).then(function (data) {
             $apiQuote.text(data.content + " - " + data.author)
+            apiText = data.content;
+            apiAuthor = data.author;
             console.log(data)
             console.log(data.content)
             console.log(URL3)
@@ -151,6 +166,7 @@ function setUpQuote() {
         $.ajax(URL).then(function(data) {
         $apiQuote.text(data.question)
         console.log(data.question)
+        apiText = data.question;
         console.log(URL)    
         $('span').css("display", "none");
         },function(error) {
@@ -162,6 +178,8 @@ function setUpQuote() {
             console.log(data.contents)
             console.log(data.contents.quotes[0].quote)
             console.log(URL2)
+            apiText = data.contents.quotes[0].quote;
+            apiAuthor = data.contents.quotes[0].author;
             $('span').css("display", "");
         },function(error) {
             console.log("error")
