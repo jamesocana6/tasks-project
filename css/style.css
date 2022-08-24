@@ -3,8 +3,43 @@
     margin: 0;
 }
 
-body {
+/* body {
     background-color: green;
+} */
+
+/* TABLE FORMATTING */
+table {
+    border: 3px solid;
+    border-radius: 5px;
+    border-color: green;
+    border-collapse: collapse;
+    margin: 10px;
+}
+
+table#todolist {
+    display: grid;
+    justify-items: center;
+    width: fit-content;
+}
+
+tfoot > tr > td > button {
+    column-span: 2;
+}
+
+thead , tfoot {
+    display: grid;
+    column-count: 1;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+}
+
+thead > tr {
+    column-span: all;
+    column-count: 1;
+    justify-content: end;
+    justify-items: center;
+    align-items: center;
 }
 
 tbody > tr > td > button {
@@ -13,8 +48,17 @@ tbody > tr > td > button {
 
 tbody > tr {
     height: 30px;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    border-color: green;
 }
 
+tbody > tr > td {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/* NAVIGATION BAR FORMATTING */
 nav {
     display: flex;
     justify-content: space-evenly;
@@ -34,7 +78,29 @@ nav > a.disabled {
     background-color: rgb(68, 126, 68);
 }
 
+/* NOTES FORMATTING */
 table.notes {
     display: flex;
     flex-flow: row wrap;
+}
+
+/* DATE FORMATTING */
+div#date {
+    display: flex;
+    flex-flow: column;
+    color: rgb(117, 214, 117);
+    font-weight: bold;
+    text-align: center;
+    width: fit-content;
+    position: absolute;
+    right: 0;
+    padding: 10px;
+}
+div#date > p#day {
+    font-size: xx-large;
+}
+
+div#quote {
+    display: grid;
+    justify-items: center;
 }
