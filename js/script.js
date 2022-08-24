@@ -29,18 +29,13 @@ let $savedAlert = $("#saved");
 $tfoot.on("click", "button", function (data) {
     event.preventDefault();
     if (userInput.value) {
-
-
         let newTask = `<tr class="${savedListStr}"><td class="list"><p class="${savedListStr}">${userInput.value}<p></td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`;
         //console.log(userInput.value)
         $todo.append(newTask);
         savedList.push(userInput.value);
-        // savedList.push(newTask);
         saveToStorage(savedList, savedListStr);
         userInput.value = "";
-    } else {
-        return;
-    }
+    } 
     //console.log("we got the onclick");
 });
 
@@ -59,7 +54,6 @@ $apiQuote.on("click", function (quote) {
         $savedAlert.html("Quote saved!");
         $savedAlert.fadeIn(1000);
         $savedAlert.fadeOut(3000);
-
     }
     //console.log("clicked the API quote");
 });
@@ -94,14 +88,22 @@ $("tbody").on("click", "#edit", function (evt) {
     let editInput = `<td><input id="enter" type="text" value="${evt.target.closest("tr").firstElementChild.innerText}"></td>`;
     console.log(evt.target.closest("tr").firstElementChild.innerHTML)
     evt.target.closest("tr").firstElementChild.innerHTML = editInput;
-    $("tbody").on("keypress", "input#enter", function(evt) {
+    $("tbody").on("keydown", "input#enter", function(evt) {
         if (evt.key === "Enter") {
             event.preventDefault();
             console.log(evt.target.value);
             console.log(evt.target.parentNode.innerHTML);
-            evt.target.parentNode.innerHTML = `<p>${evt.target.value}</p>`
+            evt.target.parentNode.innerHTML = `<p class="${savedListStr}">${evt.target.value}</p>`
             $('button#edit').removeAttr("disabled");
-            
+            let allListTags = document.querySelectorAll(`p.${savedListStr}`);
+            console.log(allListTags);
+            savedList = [];
+            allListTags.forEach(function(quote) {
+                savedList.push(quote.innerText);
+                console.log(quote.innerText)
+            });
+            console.log(savedList)
+            saveToStorage(savedList, savedListStr);
         }
     });
 });
@@ -131,7 +133,7 @@ function saveToStorage(array, arrayStr) {
 function setUpQuote() {
     let idx = Math.floor(Math.random() * 10) + 1;
     console.log(idx)
-    if (1 <= idx && idx < 6) {
+    if (1 <= idx && idx < 7) {
         $.ajax(URL3).then(function (data) {
             $apiQuote.text(data.content + " - " + data.author)
             console.log(data)
@@ -141,7 +143,7 @@ function setUpQuote() {
         }, function (error) {
             console.log("error")
         });
-    } else if (6 <= idx && idx < 8) {
+    } else if (7 <= idx && idx < 10) {
         $.ajax(URL).then(function(data) {
         $apiQuote.text(data.question)
         console.log(data.question)
@@ -198,6 +200,17 @@ setUpQuote();
 ////////////////////
 //FEATURES TO ADD//
 ////////////////////
+
+
+// Add a modal to add tasks, include date due, date added?, priority lvl
+// work on css
+// add a calendar
+// add notes
+// add indented tasks to show whats part of what
+// save values as an array in an array to include date, date added, prioity lvl
+// add a star that spins when you click save quote
+// hover feature to hide the edit and x on list and quotes
+// ability to make more than one todo list
 
 //Remove the branding so it only shows when the quote comes from they said so
 
