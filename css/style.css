@@ -7,6 +7,14 @@ body {
     background-color: green;
 }
 
+tbody > tr > td > button {
+    display: none;
+}
+
+tbody > tr {
+    height: 30px;
+}
+
 nav {
     display: flex;
     justify-content: space-evenly;
@@ -18,8 +26,8 @@ nav {
 nav > a {
     text-decoration-line: none;
     color: black;
-    /* padding: 15px 40px; */
-    padding: 2% 3%;
+    max-height: 50px;
+    padding: 15px 3%;
 }
 
 nav > a.disabled {

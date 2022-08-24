@@ -213,6 +213,8 @@ function setUpQuote() {
 // add a star that spins when you click save quote
 // hover feature to hide the edit and x on list and quotes
 // ability to make more than one todo list
+// look into modals
+// one quote a day?
 
 //Remove the branding so it only shows when the quote comes from they said so
 
