@@ -9,6 +9,9 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous" defer></script>
     <script defer src="../js/script.js"></script>
     <script defer src="../js/notes.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300&display=swap');
+        </style>
     <link rel="stylesheet" href="../css/style.css">
     <title>Tasks</title>
 </head>
@@ -17,41 +20,32 @@
     <a href="../index.html">HOME</a>
     <a href="./quotes.html">QUOTES</a>
     <a class="disabled">NOTES</a>
-    <a href="/tasks">TASKS</a>
-    <a href="/calendar">CALENDAR</a>
+    <!-- <a href="/tasks">TASKS</a>
+    <a href="/calendar">CALENDAR</a> -->
 </nav>
 
 <body>
-    <table class="notes">
-        <thead>
-            <tr>
-                <th>
-                    <h2>Notes</h2>
-                </th>
-                <th><button>Add Note</button></th>
-            </tr>
-        </thead>
-        <tbody class="notes">
-            <tr>
-                <td>
-                    <table>
-                        <thead>
-                            <th>NOTE TITLE</th>
-                            <th><button id="edit">edit</button></th>
-                            <th><button id="remove">X</button></th>
-                        </thead>
-                        <tbody>
-                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos at ex eaque ipsum odit,
-                                dolores corrupti necessitatibus accusamus dolore, nemo, expedita nisi! Possimus, porro
-                                numquam laborum aspernatur error delectus eum!
-                            </td>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-        </tbody>
+    <div id="date">
 
-    </table>
+    </div>
+    <h2>Notes</h2>
+    <button>Add Note</button>
+    <div id="test">
+        <table class="notes">
+            <thead>
+                <th>NOTE TITLE</th>
+                <th><button id="edit">edit</button></th>
+                <th><button id="remove">X</button></th>
+            </thead>
+            <tbody>
+                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos at ex eaque ipsum odit,
+                    dolores corrupti necessitatibus accusamus dolore, nemo, expedita nisi! Possimus, porro
+                    numquam laborum aspernatur error delectus eum!
+                </td>
+            </tbody>
+        </table>
+    </div>
+
 </body>
 
 </html>

@@ -15,3 +15,6 @@ $("table.notes").on("click", "button", function() {
 
 //FUNCTIONS//
 
+$("div#date").append(`<p id="month">${month}</p>`);
+$("div#date").append(`<p id="day">${day}</p>`);
+$("div#date").append(`<p id="year">${year}</p>`);

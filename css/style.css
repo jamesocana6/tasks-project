@@ -1,6 +1,7 @@
 * {
     box-sizing: border-box;
     margin: 0;
+    font-family: 'Signika Negative', sans-serif;
 }
 
 /* TABLE FORMATTING */
@@ -25,21 +26,8 @@ table#todolist {
     max-width: 100%;
 }
 
-tfoot > tr > td > button {
-    column-span: 2;
-}
-
-thead > tr, tfoot {
-    display: grid;
-    column-count: 1;
-    justify-content: center;
-    align-items: center;
+thead, tfoot {
     border: 0;
-    background-color: aliceblue;
-}
-
-th {
-    margin: auto;
 }
 
 tbody > tr > td > button {
@@ -80,10 +68,7 @@ nav > a.disabled {
 }
 
 /* NOTES FORMATTING */
-table.notes {
-    display: flex;
-    flex-flow: row wrap;
-}
+
 
 /* DATE FORMATTING */
 div#date {
