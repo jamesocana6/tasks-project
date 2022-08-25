@@ -157,29 +157,56 @@ function findIndexOfQuote(text) {
 
 function theme1() {
     $("nav").attr("class", "theme1");
-    $("div#date").attr("class", "theme1");
     $("table").attr("class", "theme1");
-    $("tbody").attr("class", "theme1");
+    if (dark.isActive) {
+        $("div#date").attr("class", "theme1 dark");
+        $("tbody").attr("class", "theme1 dark");
+    } else {
+        $("div#date").attr("class", "theme1");
+        $("tbody").attr("class", "theme1");    
+    }
 }
 
 function theme2() {
     $("nav").attr("class", "theme2");
-    $("div#date").attr("class", "theme2");
     $("table").attr("class", "theme2");
-    $("tbody").attr("class", "theme2");
+    if (dark.isActive) {
+        $("div#date").attr("class", "theme2 dark");
+        $("tbody").attr("class", "theme2 dark");
+    } else {
+        $("div#date").attr("class", "theme2");
+        $("tbody").attr("class", "theme2");    
+    }
 }
 
 function theme3() {
     $("nav").attr("class", "theme3");
-    $("div#date").attr("class", "theme3");
     $("table").attr("class", "theme3");
-    $("tbody").attr("class", "theme3");
+    if (dark.isActive) {
+        $("div#date").attr("class", "theme3 dark");
+        $("tbody").attr("class", "theme3 dark");
+    } else {
+        $("div#date").attr("class", "theme3");
+        $("tbody").attr("class", "theme3");    
+    }
 }
 
-function dark() {
-    $("body").attr("class", "dark");
-    document.querySelector("tbody").classList.add("dark");
-    $("div#date").attr("class", "dark");
+//Dark theme object
+const dark = {
+    isActive: false,
+    toggleDark: function() {
+        if (this.isActive) {
+            $("body").attr("class", "");
+            document.querySelector("tbody").classList.remove("dark");
+            document.querySelector("div#date").classList.remove("dark");
+            this.isActive = false;
+        } else {
+            $("body").attr("class", "dark");
+            document.querySelector("tbody").classList.add("dark");
+            document.querySelector("div#date").classList.add("dark");
+            this.isActive = true;
+        }
+    },
 }
 
 function setUpQuote() {
@@ -223,9 +250,7 @@ function setUpQuote() {
 }
 
 theme2();
-dark();
-checkArrayForQuote();
-
+dark.toggleDark();
 
 ////////////////////////////////////////
 //APIs for quotes are connected//
