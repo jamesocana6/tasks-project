@@ -124,7 +124,7 @@ nav > a.disabled {
 div#date {
     display: flex;
     flex-flow: column;
-    color: rgb(68, 126, 68);
+    color: rgb(98, 98, 98);
     font-weight: bold;
     text-align: center;
     width: fit-content;
@@ -163,10 +163,16 @@ div#date[theme="1"] {
 tbody[theme="1"] > tr {
     border-color: var(--theme1-border);
 }
+tbody[theme="1 dark"] > tr {
+    border-color: var(--theme1-border);
+}
 table[theme="1"] {
     border-color: var(--theme1-border);
 }
 tbody[theme="1"] > tr:hover {
+    background-color: var(--theme1-hover);
+}
+tbody[theme="1 dark"] > tr:hover {
     background-color: var(--theme1-hover);
 }
 
@@ -183,10 +189,16 @@ div#date[theme="2"] {
 tbody[theme="2"] > tr {
     border-color: var(--theme2-border);
 }
+tbody[theme="2 dark"] > tr {
+    border-color: var(--theme2-border);
+}
 table[theme="2"] {
     border-color: var(--theme2-border);
 }
 tbody[theme="2"] > tr:hover {
+    background-color: var(--theme2-hover);
+}
+tbody[theme="2 dark"] > tr:hover {
     background-color: var(--theme2-hover);
 }
 
@@ -203,10 +215,16 @@ div#date[theme="3"] {
 tbody[theme="3"] > tr {
     border-color: var(--theme3-border);
 }
+tbody[theme="3 dark"] > tr {
+    border-color: var(--theme3-border);
+}
 table[theme="3"] {
     border-color: var(--theme3-border);
 }
 tbody[theme="3"] > tr:hover {
+    background-color: var(--theme3-hover);
+}
+tbody[theme="3 dark"] > tr:hover {
     background-color: var(--theme3-hover);
 }
 
@@ -223,22 +241,72 @@ div#date[theme="4"] {
 tbody[theme="4"] > tr {
     border-color: var(--theme4-border);
 }
+tbody[theme="4 dark"] > tr {
+    border-color: var(--theme4-border);
+}
 table[theme="4"] {
     border-color: var(--theme4-border);
 }
 tbody[theme="4"] > tr:hover {
     background-color: var(--theme4-hover);
 }
+tbody[theme="4 dark"] > tr:hover {
+    background-color: var(--theme4-hover);
+}
 
 /* DARK */
-body.dark {
+body[theme="dark"] {
     background-color: var(--theme-dark);
     color: rgb(196, 196, 196);
 }
-tbody.dark > tr:hover {
+tbody[theme="dark"] > tr:hover {
     color: rgb(69, 69, 69);
 }
-div#date.dark {
+div#date[theme="dark"] {
+    color: rgb(196, 196, 196);
+}
+
+body[theme="1 dark"] {
+    background-color: var(--theme-dark);
+    color: rgb(196, 196, 196);
+}
+tbody[theme="1 dark"] > tr:hover {
+    color: rgb(69, 69, 69);
+}
+div#date[theme="1 dark"] {
+    color: rgb(196, 196, 196);
+}
+
+body[theme="2 dark"] {
+    background-color: var(--theme-dark);
+    color: rgb(196, 196, 196);
+}
+tbody[theme="2 dark"] > tr:hover {
+    color: rgb(69, 69, 69);
+}
+div#date[theme="2 dark"] {
+    color: rgb(196, 196, 196);
+}
+
+body[theme="3 dark"] {
+    background-color: var(--theme-dark);
+    color: rgb(196, 196, 196);
+}
+tbody[theme="3 dark"] > tr:hover {
+    color: rgb(69, 69, 69);
+}
+div#date[theme="3 dark"] {
+    color: rgb(196, 196, 196);
+}
+
+body[theme="4 dark"] {
+    background-color: var(--theme-dark);
+    color: rgb(196, 196, 196);
+}
+tbody[theme="4 dark"] > tr:hover {
+    color: rgb(69, 69, 69);
+}
+div#date[theme="4 dark"] {
     color: rgb(196, 196, 196);
 }
 
@@ -259,4 +327,8 @@ div#date.dark {
     border-color: var(--theme-dark-text);
     color: var(--theme-dark-text);
     background-color: var(--button-hover);
+}
+
+p#placeholder {
+    margin: 50px 0;
 }

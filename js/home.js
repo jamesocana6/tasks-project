@@ -1,4 +1,6 @@
-populateList(savedList, savedListStr);
+renderPlaceholer();
+populateLists(savedList2, savedListStr2);
+renderTheme();
 setUpQuote();
 
 //ON CLICK EVENTS//
@@ -16,9 +18,9 @@ $("div#test").on("click", function (evt) {
                 event.preventDefault();
                 if (checkListForTime(savedList2, tableTime)) {
                     let indexOfContent = savedList2[findIndexOfTime(tableTime, savedList2)].content.indexOf(editThis);
-                    savedList2[findIndexOfTime(tableTime, savedList2)].content[indexOfContent] = evt.target.value;
+                    savedList2[findIndexOfTime(tableTime, savedList2)].content[indexOfContent] = evt.target.value.trim();
                 }
-                evt.target.parentNode.innerHTML = `<p class="${savedListStr}">${evt.target.value}</p>`
+                evt.target.parentNode.innerHTML = `<p class="${savedListStr}">${evt.target.value.trim()}</p>`
                 $('button#edit').removeAttr("disabled");
                 saveToStorage(savedList2, savedListStr2);
             }
@@ -38,7 +40,9 @@ $("div#test").on("click", function (e) {
             $tbody.append(newTask);
             let tableTime = e.target.closest("table").classList[0]
             if (checkListForTime(savedList2, tableTime)) {
-                savedList2[findIndexOfTime(tableTime, savedList2)].content.push($userInput.val());
+                savedList2[findIndexOfTime(tableTime, savedList2)].content.push($userInput.val().trim());
+            } else {
+                savedList2.push({title: "To Do", content: [$userInput.val().trim()], timestamp: "0000"})
             }
             $userInput.val("");
             saveToStorage(savedList2, savedListStr2);
@@ -62,6 +66,11 @@ $apiQuote.on("click", function (quote) {
 });
 
 $('#addList').on("click", function(evt) {
+    if (firstList === "false") {
+        firstList = "true";
+        storage.setItem("clicked", "true");
+        renderPlaceholer();
+    }
     let timeNow = new Date();
     let time = timeNow.getHours().toString() + timeNow.getMinutes().toString() + timeNow.getSeconds().toString();
     console.log(month+day+year+time)
@@ -102,17 +111,24 @@ $("div#test").on("click", function (evt) {
                 event.preventDefault();
                 if (checkListForTime(savedList2, tableTime)) {
                     savedList2[findIndexOfTime(tableTime, savedList2)].title = evt.target.value;
+                } else {
+                    savedList2.push({title: evt.target.value.trim(), content: "", timestamp: "0000"});
                 }
-                evt.target.parentNode.innerHTML = `<h3 id="tableTitle">${evt.target.value}</h3>`;
+                evt.target.parentNode.innerHTML = `<h3 id="tableTitle">${evt.target.value.trim()}</h3>`;
             }
         });
     } 
 });
 
-
-$("div#date").append(`<p id="month">${month}</p>`);
-$("div#date").append(`<p id="day">${day}</p>`);
-$("div#date").append(`<p id="year">${year}</p>`);
+function renderPlaceholer() {
+    if (firstList === "false") {
+        $("div#test").append("<p id='placeholder'>Click the circle plus to make your first list!</p>");
+    } else {
+        if (document.querySelector("p#placeholder")) {
+            document.querySelector("p#placeholder").remove();
+        }
+    }
+}
 
 // DOES NOT WORK
 // $("addList").on("click", function() {

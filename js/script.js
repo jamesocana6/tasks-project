@@ -28,7 +28,7 @@ let savedList = JSON.parse(storage.getItem("savedList")) || [];
 let savedList2 = JSON.parse(storage.getItem("savedList2")) || [];
 let savedQuotes = JSON.parse(storage.getItem("savedQuote")) || [];
 let savedQuestions = JSON.parse(storage.getItem("savedQuestion")) || [];
-
+let firstList = storage.getItem("clicked") || "false";
 
 //ELEMENTS//
 let $tfoot = $("tfoot");
@@ -38,23 +38,49 @@ let $savedAlert = $("#saved");
 
 
 //ONCLICK EVENTS//
+// //remove on click
+// $("tbody").on("click", "#remove", function (evt) {
+//     if (this.closest("tr").getAttribute("class") === savedListStr2) {
+//         // $(this).closest("tr").remove();
+//         // let allListTags = document.querySelectorAll(`p.${savedListStr}`);
+//         // savedList = [];
+//         // allListTags.forEach(function(quote) {
+//         //     savedList.push(quote.innerText);
+//         // });
+//         savedList2.splice(findIndexOfContent(evt.target.closest("tr").firstElementChild.firstElementChild.innerText, savedList2), 1);
+//         $(this).closest("tr").remove();
+//         saveToStorage(savedList2, savedListStr2);
+//     } else if (this.closest("tr").getAttribute("class") === savedQuotesStr) {
+//         savedQuotes.splice(findIndexOfContent(evt.target.closest("tr").firstElementChild.firstElementChild.innerText, savedQuotes), 1);
+//         $(this).closest("tr").remove();
+//     }
+//     saveToStorage(savedQuotes, savedQuotesStr);
+// });
 //remove on click
-$("tbody").on("click", "#remove", function (evt) {
-    if (this.closest("tr").getAttribute("class") === savedListStr2) {
-        // $(this).closest("tr").remove();
-        // let allListTags = document.querySelectorAll(`p.${savedListStr}`);
-        // savedList = [];
-        // allListTags.forEach(function(quote) {
-        //     savedList.push(quote.innerText);
-        // });
-        savedList2.splice(findIndexOfContent(evt.target.closest("tr").firstElementChild.firstElementChild.innerText, savedList2), 1);
-        $(this).closest("tr").remove();
-        saveToStorage(savedList2, savedListStr2);
-    } else if (this.closest("tr").getAttribute("class") === savedQuotesStr) {
-        savedQuotes.splice(findIndexOfContent(evt.target.closest("tr").firstElementChild.firstElementChild.innerText, savedQuotes), 1);
-        $(this).closest("tr").remove();
+$("div#test").on("click", function (evt) {
+    if (evt.target.id === "remove") {
+        console.log(evt.target.closest("tr"));
+        let tableTime = evt.target.closest("table").classList[0]
+        let itemToBeRemoved = evt.target.closest("tr").firstElementChild.firstElementChild.innerText;
+        if (evt.target.closest("tr").getAttribute("class") === savedListStr2) {
+            // $(evt.target).closest("tr").remove();
+            // let allListTags = document.querySelectorAll(`p.${savedListStr}`);
+            // savedList = [];
+            // allListTags.forEach(function(quote) {
+            //     savedList.push(quote.innerText);
+            // });
+            // savedList2.splice(findIndexOfContent(evt.target.closest("tr").firstElementChild.firstElementChild.innerText, savedList2), 1);
+            if (checkListForTime(savedList2, tableTime)) {
+                let indexOfContent = savedList2[findIndexOfTime(tableTime, savedList2)].content.indexOf(itemToBeRemoved);
+                savedList2[findIndexOfTime(tableTime, savedList2)].content.splice(indexOfContent, 1);
+                $(evt.target).closest("tr").remove();
+            }
+        } else if (evt.target.closest("tr").getAttribute("class") === savedQuotesStr) {
+            savedQuotes.splice(findIndexOfContent(evt.target.closest("tr").firstElementChild.firstElementChild.innerText, savedQuotes), 1);
+            $(evt.target).closest("tr").remove();
+        }
+        saveToStorage(savedQuotes, savedQuotesStr);
     }
-    saveToStorage(savedQuotes, savedQuotesStr);
 });
 
 //change the theme onclick radio button
@@ -111,7 +137,32 @@ function populateList(list, listStr) {
 function populateLists(list, listStr) {
     if (list.length > 0) {
         list.forEach(function (item) {
-            $("tbody").append(`<tr class="${listStr}"><td><p class="${listStr}">${item}</p></td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`)
+            $("div#test").append(`<table id="todolist" class="${item.timestamp}">
+    <thead id="tableTitle">
+        <tr id="tableTitle">
+            <th id="tableTitle">
+                <h3 id="tableTitle">${item.title}</h3>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>
+                <input class="user" type="text" placeholder="Enter a task">
+            </td>
+            <td>
+                <button id="addTaskBtn" type="submit">Add Task</button>
+            </td>
+        </tr>
+    </tfoot>
+</table>`);
+            if (item.content.length > 0) {
+                item.content.forEach(function(text) {
+                    $(`table.${item.timestamp} > tbody`).append(`<tr class="${listStr}"><td><p class="${listStr}">${text.trim()}</p></td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`)
+                });
+            }
         });
     }
 }
@@ -175,7 +226,7 @@ function findIndexOfContent(text, objectArray) {
 function findIndexOfContentList(text, objectArray) {
     let i = 0;
     for (let quote of objectArray) {
-        if (quote.content.includes(text)) {
+        if (quote.content.includes(text.trim())) {
             return i;
         } else {
             i++;
@@ -274,6 +325,15 @@ function setUpTheme() {
 
 function renderTheme() {
     savedTheme = storage.getItem("theme");
+    savedDark = storage.getItem("darkMode");
+    if (savedDark === "true") {
+        $("body").attr("theme", "dark");
+            if(document.querySelector("tbody")) {
+                document.querySelector("tbody").setAttribute("theme", "dark");
+                document.querySelector("div#date").setAttribute("theme", "dark");
+        }
+        $("input[type='checkbox']").attr("checked", "true");
+    }
     switch (savedTheme) {
         case "1":
             theme1();
@@ -343,20 +403,30 @@ const dark = {
     isActive: false,
     toggleDark: function () {
         if (this.isActive) {
-            $("body").attr("class", "");
-            document.querySelector("tbody").classList.remove("dark");
-            document.querySelector("div#date").classList.remove("dark");
+            $("body").attr("theme", "");
+            if(document.querySelector("tbody")) {
+                document.querySelector("tbody").removeAttribute("dark");
+                document.querySelector("div#date").removeAttribute("dark");
+            }
             this.isActive = false;
         } else {
-            $("body").attr("class", "dark");
-            document.querySelector("tbody").classList.add("dark");
-            document.querySelector("div#date").classList.add("dark");
+            $("body").attr("theme", "dark");
+            if(document.querySelector("tbody")) {
+                document.querySelector("tbody").setAttribute("theme", "dark");
+                document.querySelector("div#date").setAttribute("theme", "dark");
+            }
             this.isActive = true;
         }
     },
 }
 
+$("div#date").append(`<p id="month">${month}</p>`);
+$("div#date").append(`<p id="day">${day}</p>`);
+$("div#date").append(`<p id="year">${year}</p>`);
+
+
 setUpTheme();
+renderTheme();
 
 ////////////////////////////////////////
 //APIs for quotes are connected//
