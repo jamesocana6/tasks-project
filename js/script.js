@@ -20,6 +20,8 @@ let month = monthName[date.getMonth()];
 let year = date.getFullYear();
 let storage = localStorage;
 //storage.clear();
+let savedDark = storage.getItem("darkMode") || "false";
+let savedTheme = storage.getItem("theme") || 0;
 let userInput = document.querySelector("input");
 let savedList = JSON.parse(storage.getItem("savedList")) || [];
 let savedQuotes = JSON.parse(storage.getItem("savedQuote")) || [];
@@ -56,12 +58,15 @@ $("input[type=radio]").on("click", function(evt) {
     switch (evt.target.value) {
         case "theme1":
             theme1();
+            storage.setItem("theme", 1);
             break;
         case "theme2":
             theme2();
+            storage.setItem("theme", 2);
             break;
         case "theme3":
             theme3();
+            storage.setItem("theme", 3);
             break;
         default:
             break;
@@ -80,6 +85,7 @@ $("input[type=checkbox]").on("click", function(evt) {
         default:
             break;
     }
+    storage.setItem("darkMode", evt.target.checked);
 });
 
 
@@ -183,6 +189,29 @@ const dark = {
     },
 }
 
+function setUpTheme() {
+    if (savedDark === "true") {
+        dark.toggleDark();
+        $("input[type='checkbox']").attr("checked", "true");
+    }
+    switch (savedTheme) {
+        case "1":
+            theme1();
+            $("input[value='theme1']").attr("checked", "true");
+            break;
+        case "2":
+            theme2();
+            $("input[value='theme2']").attr("checked", "true");
+            break;
+        case "3":
+            theme3();
+            $("input[value='theme3']").attr("checked", "true");
+            break;
+        default:
+            break;
+    }
+}
+
 function setUpQuote() {
     let idx = Math.floor(Math.random() * 10) + 1;
     console.log(idx)
@@ -222,6 +251,8 @@ function setUpQuote() {
         });
     }
 }
+
+setUpTheme();
 
 //theme2();
 //dark.toggleDark();
