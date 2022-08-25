@@ -99,7 +99,21 @@ function populateList(list, listStr) {
     }
 }
 
+//populates quotes and sorts them by author firstname alphabetical
 function populateQuote(list, listStr) {
+    let sortedList = list.sort(function(a, b) {
+        let sorter = a.author.charCodeAt(0) - b.author.charCodeAt(0);
+        console.log(sorter); 
+        let i = 0;
+        if (sorter === 0) {
+            i++;
+            sorter = a.author.charCodeAt(i) - b.author.charCodeAt(i);
+            console.log(sorter)
+        }
+        return sorter;
+    });
+    console.log(list);
+    console.log(sortedList);
     if (list.length > 0) {
         list.forEach(function (item) {
             $("tbody").append(`<tr class="${listStr}"><td><p class="${listStr}">${item.content}</p></td><td><p>${item.author}</p></td><td><button id="remove">X</button></td></tr>`);
