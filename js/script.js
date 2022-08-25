@@ -146,10 +146,32 @@ function checkArrayForQuote() {
     if (i > 0) { return true };
 }
 
+function checkListForTime(list, listIDTime) {
+    let i = 0;
+    for (let quote of list) {
+        if (quote.timestamp.includes(listIDTime)) {
+            i++;
+        }
+    }
+    if (i > 0) { return true };
+}
+
 function findIndexOfContent(text, objectArray) {
     let i = 0;
     for (let quote of objectArray) {
         if (quote.content === text) {
+            return i;
+        } else {
+            i++;
+        }
+    }
+    return undefined;
+}
+
+function findIndexOfTime(text, objectArray) {
+    let i = 0;
+    for (let quote of objectArray) {
+        if (quote.timestamp === text) {
             return i;
         } else {
             i++;

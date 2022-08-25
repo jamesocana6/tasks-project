@@ -103,6 +103,11 @@ tbody > tr > td {
 
 tbody > tr:hover {
     background-color: rgb(136, 218, 136);
+
+}
+
+tbody > tr:hover > td > button#edit, tbody > tr:hover > td > button#remove{
+    display: table-cell;
 }
 
 /* NAVIGATION BAR FORMATTING */

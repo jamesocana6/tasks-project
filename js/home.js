@@ -31,24 +31,6 @@ $("tbody").on("click", "#edit", function (evt) {
     });
 });
 
-// //add to the list onclick
-// $tfoot.on("click", "button", function (e) {
-//     if (e.target.type === "submit") {
-//         console.log("wking")
-//     }
-//     event.preventDefault();
-//     console.log("wroking")
-//     if ($userInput.val()) {
-//         let newTask = `<tr class="${savedListStr}"><td class="list"><p class="${savedListStr}">${$userInput.val()}<p></td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`;
-//         //console.log(userInput.value)
-//         $todo.append(newTask);
-//         savedList.push($userInput.val());
-//         saveToStorage(savedList, savedListStr);
-//         $userInput.val("");
-//     } 
-//     //console.log("we got the onclick");
-// });
-
 //EVENT DELEGATION BECAUSE EVENTS DONT DYNAMICALLY ADD TO NEW ELEMNTS 
 //add task on click
 $("div#test").on("click", function (e) {
@@ -59,13 +41,13 @@ $("div#test").on("click", function (e) {
             let $tbody = $(e.target.parentNode.parentNode.parentNode.parentNode.children[1]);
             let newTask = `<tr class="${savedListStr}"><td class="list"><p class="${savedListStr}">${$userInput.val()}<p></td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`;
             //Get the h3 element in thead and use it as title
-            let listTitle = e.target.parentNode.parentNode.parentNode.parentNode.children[0].firstElementChild.firstElementChild.innerText.replaceAll(" ","-").toLowerCase();
+            let listTitle = e.target.parentNode.parentNode.parentNode.parentNode.children[0].firstElementChild.firstElementChild.innerText;
             $tbody.append(newTask);
             $userInput.val("");
             savedList2.push({title: listTitle, content: newTask});
             saveToStorage(savedList2, savedListStr2);
         }
-        }
+    }
 });
 
 //Save quote onclick
@@ -81,28 +63,17 @@ $apiQuote.on("click", function (quote) {
         savedQuotes.push({content: apiText, author: apiAuthor});
         saveToStorage(savedQuotes, savedQuotesStr);
     }
-    //console.log("clicked the API quote");
 });
-
-$("tbody > tr").hover(function(evt) {
-    //$(evt.target).closest("tr").css("backgroundColor", "lightgreen");
-    //target the edit and remove buttons
-    $(evt.target).closest("tr").children().eq(1).children().eq(0).css("display", "table-cell");
-    $(evt.target).closest("tr").children().eq(2).children().eq(0).css("display", "table-cell");
-},function(evt) {
-    //$(evt.target).closest("tr").css("backgroundColor", "");
-    //target the edit and remove buttons
-    $(evt.target).closest("tr").children().eq(1).children().eq(0).css("display", "none");
-    $(evt.target).closest("tr").children().eq(2).children().eq(0).css("display", "none");
-});
-
 
 $('#addList').on("click", function(evt) {
-    $("div#test").append(`<table id="todolist">
-    <thead>
-        <tr>
-            <th>
-                <h3>To Do</h3>
+    let timeNow = new Date();
+    let time = timeNow.getHours().toString() + timeNow.getMinutes().toString() + timeNow.getSeconds().toString();
+    console.log(month+day+year+time)
+    $("div#test").append(`<table id="todolist" class="${month+day+year+time}">
+    <thead id="tableTitle">
+        <tr id="tableTitle">
+            <th id="tableTitle">
+                <h3 id="tableTitle">Click To Edit Title</h3>
             </th>
         </tr>
     </thead>
@@ -119,6 +90,26 @@ $('#addList').on("click", function(evt) {
         </tr>
     </tfoot>
 </table>`);
+    savedList2.push({title: "Click To Edit Title", content: "", timestamp: (month+day+year+time)})
+});
+
+//edit title on click
+$("div#test").on("click", function (evt) {
+    event.preventDefault();
+    if (evt.target.id === "tableTitle") {
+        let editInput = `<th><input id="enter" type="text" value="${evt.target.closest("tr").firstElementChild.innerText}"></th>`;
+        let tableTime = evt.target.closest("table").classList[0]
+        evt.target.closest("tr").firstElementChild.innerHTML = editInput;
+        $("thead").on("keydown", function(evt) {
+            if (evt.key === "Enter") {
+                event.preventDefault();
+                if (checkListForTime(savedList2, tableTime)) {
+                    savedList2[findIndexOfTime(tableTime, savedList2)].title = evt.target.value;
+                }
+                evt.target.parentNode.innerHTML = `<h3 id="tableTitle">${evt.target.value}</h3>`;
+            }
+        });
+    } 
 });
 
 
