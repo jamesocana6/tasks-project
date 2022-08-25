@@ -32,7 +32,7 @@
         <h2>Tasks</h2>
     </div>
     <div class="addToDo">
-        <input class="addSomethingBtn" type="button" value="+">
+        <input id="addList" class="addSomethingBtn" type="button" value="+">
     </div>
     <div id="test">
         <table id="todolist">
@@ -48,10 +48,10 @@
             <tfoot>
                 <tr>
                     <td>
-                        <input id="user" type="text" placeholder="Enter a task">
+                        <input class="user" type="text" placeholder="Enter a task">
                     </td>
                     <td>
-                        <button type="submit">Add Task</button>
+                        <button id="addTaskBtn" type="submit">Add Task</button>
                     </td>
                 </tr>
             </tfoot>
@@ -63,6 +63,16 @@
         <p id="apiquote"></p>
     </div>
 
+    <span style="z-index:50;font-size:0.9em; font-weight: bold;">
+        <img src="https://theysaidso.com/branding/theysaidso.png" height="20" width="20" alt="theysaidso.com" />
+        <a href="https://theysaidso.com" title="Powered by quotes from theysaidso.com"
+            style="color: #ccc; margin-left: 4px; vertical-align: middle;">
+            They Said So®
+        </a>
+    </span>
+    
+</body>
+<footer>    
     <div id="themes">
         <div>
             <input type="radio" name="themes" id="theme1" value="theme1">
@@ -81,15 +91,6 @@
             <label for="dark">Dark Mode</label>
         </div>
     </div>
-
-</body>
-
-<span style="z-index:50;font-size:0.9em; font-weight: bold;">
-    <img src="https://theysaidso.com/branding/theysaidso.png" height="20" width="20" alt="theysaidso.com" />
-    <a href="https://theysaidso.com" title="Powered by quotes from theysaidso.com"
-        style="color: #ccc; margin-left: 4px; vertical-align: middle;">
-        They Said So®
-    </a>
-</span>
+</footer>
 
 </html>

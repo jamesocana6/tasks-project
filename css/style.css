@@ -25,6 +25,7 @@
 div#test {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 div#title {
@@ -35,12 +36,11 @@ div#title {
 
 div#themes {
     display: flex;
-    position: absolute;
-    bottom: 0;
+    position: absolute fixed;
     left: 15%;
     right: 15%;
     justify-content: space-evenly;
-    margin: 15px 0;
+    margin: 50px 0;
 }
 
 .addSomethingBtn {

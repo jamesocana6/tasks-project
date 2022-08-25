@@ -31,18 +31,41 @@ $("tbody").on("click", "#edit", function (evt) {
     });
 });
 
-//add to the list onclick
-$tfoot.on("click", "button", function (data) {
+// //add to the list onclick
+// $tfoot.on("click", "button", function (e) {
+//     if (e.target.type === "submit") {
+//         console.log("wking")
+//     }
+//     event.preventDefault();
+//     console.log("wroking")
+//     if ($userInput.val()) {
+//         let newTask = `<tr class="${savedListStr}"><td class="list"><p class="${savedListStr}">${$userInput.val()}<p></td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`;
+//         //console.log(userInput.value)
+//         $todo.append(newTask);
+//         savedList.push($userInput.val());
+//         saveToStorage(savedList, savedListStr);
+//         $userInput.val("");
+//     } 
+//     //console.log("we got the onclick");
+// });
+
+//EVENT DELEGATION BECAUSE EVENTS DONT DYNAMICALLY ADD TO NEW ELEMNTS 
+//add task on click
+$("div#test").on("click", function (e) {
     event.preventDefault();
-    if (userInput.value) {
-        let newTask = `<tr class="${savedListStr}"><td class="list"><p class="${savedListStr}">${userInput.value}<p></td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`;
-        //console.log(userInput.value)
-        $todo.append(newTask);
-        savedList.push(userInput.value);
-        saveToStorage(savedList, savedListStr);
-        userInput.value = "";
-    } 
-    //console.log("we got the onclick");
+    if (e.target.id === "addTaskBtn") {
+        let $userInput = $(e.target.parentNode.parentNode.firstElementChild.firstElementChild);
+        if ($userInput.val()) {
+            let $tbody = $(e.target.parentNode.parentNode.parentNode.parentNode.children[1]);
+            let newTask = `<tr class="${savedListStr}"><td class="list"><p class="${savedListStr}">${$userInput.val()}<p></td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`;
+            //Get the h3 element in thead and use it as title
+            let listTitle = e.target.parentNode.parentNode.parentNode.parentNode.children[0].firstElementChild.firstElementChild.innerText.replaceAll(" ","-").toLowerCase();
+            $tbody.append(newTask);
+            $userInput.val("");
+            savedList2.push({title: listTitle, content: newTask});
+            saveToStorage(savedList2, savedListStr2);
+        }
+        }
 });
 
 //Save quote onclick
@@ -74,6 +97,43 @@ $("tbody > tr").hover(function(evt) {
 });
 
 
+$('#addList').on("click", function(evt) {
+    $("div#test").append(`<table id="todolist">
+    <thead>
+        <tr>
+            <th>
+                <h3>To Do</h3>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>
+                <input class="user" type="text" placeholder="Enter a task">
+            </td>
+            <td>
+                <button id="addTaskBtn" type="submit">Add Task</button>
+            </td>
+        </tr>
+    </tfoot>
+</table>`);
+});
+
+
 $("div#date").append(`<p id="month">${month}</p>`);
 $("div#date").append(`<p id="day">${day}</p>`);
 $("div#date").append(`<p id="year">${year}</p>`);
+
+// DOES NOT WORK
+// $("addList").on("click", function() {
+// $("div#test").append("<button class='help'>hello</button>")
+// console.log($buttonhelp)
+// $buttonhelp = $("button.help")
+// console.log($buttonhelp)
+// });
+// let $buttonhelp = $("button.help")
+// $buttonhelp.on("click", function() {
+//     console.log("hello")
+// })

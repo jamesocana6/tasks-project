@@ -9,6 +9,7 @@ let URL = "https://random-interview.herokuapp.com/question/random" //CONNECTED!
 
 //CONSTANTS//
 const savedListStr = "savedList";
+const savedListStr2 = "savedList2";
 const savedQuotesStr = "savedQuote";
 const savedQuestionsStr = "savedQuestion";
 const date = new Date();
@@ -22,8 +23,9 @@ let storage = localStorage;
 //storage.clear();
 let savedDark = storage.getItem("darkMode") || "false";
 let savedTheme = storage.getItem("theme") || 0;
-let userInput = document.querySelector("input#user");
+let $userInput = $("input.user");
 let savedList = JSON.parse(storage.getItem("savedList")) || [];
+let savedList2 = JSON.parse(storage.getItem("savedList2")) || [];
 let savedQuotes = JSON.parse(storage.getItem("savedQuote")) || [];
 let savedQuestions = JSON.parse(storage.getItem("savedQuestion")) || [];
 
@@ -38,23 +40,25 @@ let $savedAlert = $("#saved");
 //ONCLICK EVENTS//
 //remove on click
 $("tbody").on("click", "#remove", function (evt) {
-    if (this.closest("tr").getAttribute("class") === savedListStr) {
+    if (this.closest("tr").getAttribute("class") === savedListStr2) {
+        // $(this).closest("tr").remove();
+        // let allListTags = document.querySelectorAll(`p.${savedListStr}`);
+        // savedList = [];
+        // allListTags.forEach(function(quote) {
+        //     savedList.push(quote.innerText);
+        // });
+        savedList2.splice(findIndexOfContent(evt.target.closest("tr").firstElementChild.firstElementChild.innerText, savedList2), 1);
         $(this).closest("tr").remove();
-        let allListTags = document.querySelectorAll(`p.${savedListStr}`);
-        savedList = [];
-        allListTags.forEach(function(quote) {
-            savedList.push(quote.innerText);
-        });
-        saveToStorage(savedList, savedListStr);
+        saveToStorage(savedList2, savedListStr2);
     } else if (this.closest("tr").getAttribute("class") === savedQuotesStr) {
-        savedQuotes.splice(findIndexOfQuote(evt.target.closest("tr").firstElementChild.firstElementChild.innerText),1);
+        savedQuotes.splice(findIndexOfContent(evt.target.closest("tr").firstElementChild.firstElementChild.innerText, savedQuotes), 1);
         $(this).closest("tr").remove();
     }
     saveToStorage(savedQuotes, savedQuotesStr);
 });
 
 //change the theme onclick radio button
-$("input[type=radio]").on("click", function(evt) {
+$("input[type=radio]").on("click", function (evt) {
     switch (evt.target.value) {
         case "theme1":
             theme1();
@@ -74,7 +78,7 @@ $("input[type=radio]").on("click", function(evt) {
 });
 
 //toggle dark mode onclick
-$("input[type=checkbox]").on("click", function(evt) {
+$("input[type=checkbox]").on("click", function (evt) {
     switch (evt.target.checked) {
         case true:
             dark.toggleDark();
@@ -89,6 +93,7 @@ $("input[type=checkbox]").on("click", function(evt) {
 });
 
 
+
 //FUNCTIONS//
 //populates the list that I want to populate
 function populateList(list, listStr) {
@@ -99,21 +104,25 @@ function populateList(list, listStr) {
     }
 }
 
+function populateLists(list, listStr) {
+    if (list.length > 0) {
+        list.forEach(function (item) {
+            $("tbody").append(`<tr class="${listStr}"><td><p class="${listStr}">${item}</p></td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`)
+        });
+    }
+}
+
 //populates quotes and sorts them by author firstname alphabetical
 function populateQuote(list, listStr) {
-    let sortedList = list.sort(function(a, b) {
+    let sortedList = list.sort(function (a, b) {
         let sorter = a.author.charCodeAt(0) - b.author.charCodeAt(0);
-        console.log(sorter); 
         let i = 0;
         if (sorter === 0) {
             i++;
             sorter = a.author.charCodeAt(i) - b.author.charCodeAt(i);
-            console.log(sorter)
         }
         return sorter;
     });
-    console.log(list);
-    console.log(sortedList);
     if (list.length > 0) {
         list.forEach(function (item) {
             $("tbody").append(`<tr class="${listStr}"><td><p class="${listStr}">${item.content}</p></td><td><p>${item.author}</p></td><td><button id="remove">X</button></td></tr>`);
@@ -134,12 +143,12 @@ function checkArrayForQuote() {
             i++;
         }
     }
-    if (i > 0) {return true};
+    if (i > 0) { return true };
 }
 
-function findIndexOfQuote(text) {
+function findIndexOfContent(text, objectArray) {
     let i = 0;
-    for (let quote of savedQuotes) {
+    for (let quote of objectArray) {
         if (quote.content === text) {
             return i;
         } else {
@@ -157,7 +166,7 @@ function theme1() {
         $("tbody").attr("class", "theme1 dark");
     } else {
         $("div#date").attr("class", "theme1");
-        $("tbody").attr("class", "theme1");    
+        $("tbody").attr("class", "theme1");
     }
 }
 
@@ -169,7 +178,7 @@ function theme2() {
         $("tbody").attr("class", "theme2 dark");
     } else {
         $("div#date").attr("class", "theme2");
-        $("tbody").attr("class", "theme2");    
+        $("tbody").attr("class", "theme2");
     }
 }
 
@@ -181,27 +190,10 @@ function theme3() {
         $("tbody").attr("class", "theme3 dark");
     } else {
         $("div#date").attr("class", "theme3");
-        $("tbody").attr("class", "theme3");    
+        $("tbody").attr("class", "theme3");
     }
 }
 
-//Dark theme object
-const dark = {
-    isActive: false,
-    toggleDark: function() {
-        if (this.isActive) {
-            $("body").attr("class", "");
-            document.querySelector("tbody").classList.remove("dark");
-            document.querySelector("div#date").classList.remove("dark");
-            this.isActive = false;
-        } else {
-            $("body").attr("class", "dark");
-            document.querySelector("tbody").classList.add("dark");
-            document.querySelector("div#date").classList.add("dark");
-            this.isActive = true;
-        }
-    },
-}
 
 function setUpTheme() {
     if (savedDark === "true") {
@@ -242,17 +234,17 @@ function setUpQuote() {
             console.log("error")
         });
     } else if (7 <= idx && idx < 10) {
-        $.ajax(URL).then(function(data) {
-        $apiQuote.text(data.question)
-        console.log(data.question)
-        apiText = data.question;
-        console.log(URL)    
-        $('span').css("display", "none");
-        },function(error) {
+        $.ajax(URL).then(function (data) {
+            $apiQuote.text(data.question)
+            console.log(data.question)
+            apiText = data.question;
+            console.log(URL)
+            $('span').css("display", "none");
+        }, function (error) {
             console.log("error")
         });
     } else {
-        $.ajax(URL2).then(function(data) {
+        $.ajax(URL2).then(function (data) {
             $apiQuote.text(data.contents.quotes[0].quote + " - " + data.contents.quotes[0].author)
             console.log(data.contents)
             console.log(data.contents.quotes[0].quote)
@@ -260,11 +252,33 @@ function setUpQuote() {
             apiText = data.contents.quotes[0].quote;
             apiAuthor = data.contents.quotes[0].author;
             $('span').css("display", "");
-        },function(error) {
+        }, function (error) {
             console.log("error")
         });
     }
 }
+
+
+//OBJECTS//
+//Dark theme object
+const dark = {
+    isActive: false,
+    toggleDark: function () {
+        if (this.isActive) {
+            $("body").attr("class", "");
+            document.querySelector("tbody").classList.remove("dark");
+            document.querySelector("div#date").classList.remove("dark");
+            this.isActive = false;
+        } else {
+            $("body").attr("class", "dark");
+            document.querySelector("tbody").classList.add("dark");
+            document.querySelector("div#date").classList.add("dark");
+            this.isActive = true;
+        }
+    },
+}
+
+
 
 setUpTheme();
 
