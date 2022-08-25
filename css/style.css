@@ -17,6 +17,7 @@
     --theme3-border: #49516f;
     --theme3-nav-active: #6279b8;
     --theme3-hover: #a1b6e4;
+    --theme-dark: #373737;
 }
 
 /* TABLE FORMATTING */
@@ -177,4 +178,16 @@ table.theme3 {
 }
 tbody.theme3 > tr:hover {
     background-color: var(--theme3-hover);
+}
+
+/* DARK */
+body.dark {
+    background-color: var(--theme-dark);
+    color: rgb(196, 196, 196);
+}
+tbody.dark > tr:hover {
+    color: rgb(69, 69, 69);
+}
+div#date.dark {
+    color: rgb(196, 196, 196);
 }

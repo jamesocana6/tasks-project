@@ -23,7 +23,6 @@ let storage = localStorage;
 //storage.clear();
 let userInput = document.querySelector("input");
 let savedList = JSON.parse(storage.getItem("savedList")) || [];
-let savedQuotes = JSON.parse(storage.getItem("savedQuote")) || [];
 let savedQuotes2 = JSON.parse(storage.getItem("savedQuote2")) || [];
 let savedQuestions = JSON.parse(storage.getItem("savedQuestion")) || [];
 
@@ -50,16 +49,11 @@ $tfoot.on("click", "button", function (data) {
 
 //Save quote onclick
 $apiQuote.on("click", function (quote) {
-    if (savedQuotes.includes(quote.target.innerText)) {
+    if (checkArrayForQuote()) {
         $savedAlert.html("Quote already saved!");
         $savedAlert.fadeIn(1000);
         $savedAlert.fadeOut(3000);
-        //console.log("this quote is here already")
     } else {
-        savedQuotes.push(quote.target.innerText);
-        //console.log(quote.target)
-        //console.log(quote.target.innerText);
-        saveToStorage(savedQuotes, savedQuotesStr);
         $savedAlert.html("Quote saved!");
         $savedAlert.fadeIn(1000);
         $savedAlert.fadeOut(3000);
@@ -79,15 +73,11 @@ $("tbody").on("click", "#remove", function (evt) {
             savedList.push(quote.innerText);
         });
         saveToStorage(savedList, savedListStr);
-    } else if (this.closest("tr").getAttribute("class") === savedQuotesStr) {
+    } else if (this.closest("tr").getAttribute("class") === savedQuotesStr2) {
+        savedQuotes2.splice(findIndexOfQuote(evt.target.closest("tr").firstElementChild.firstElementChild.innerText),1);
         $(this).closest("tr").remove();
-        }
-        let allQuoteTags = document.querySelectorAll(`p.${savedQuotesStr}`);
-        savedQuotes = [];
-        allQuoteTags.forEach(function(quote) {
-            savedQuotes.push(quote.innerText);
-        });
-        saveToStorage(savedQuotes, savedQuotesStr);
+    }
+    saveToStorage(savedQuotes2, savedQuotesStr2);
 });
 
 //edit on click
@@ -128,13 +118,7 @@ function populateList(list, listStr) {
         });
     }
 }
-function populateQuotes(list, listStr) {
-    if (list.length > 0) {
-        list.forEach(function (item) {
-            $("tbody").append(`<tr class="${listStr}"><td><p class="${listStr}">${item}</p></td><td><button id="remove">X</button></td></tr>`);
-        });
-    }
-}
+
 function populateQuote(list, listStr) {
     if (list.length > 0) {
         list.forEach(function (item) {
@@ -146,6 +130,29 @@ function populateQuote(list, listStr) {
 //saves the array into the internal storage
 function saveToStorage(array, arrayStr) {
     storage.setItem(arrayStr, JSON.stringify(array));
+}
+
+//iterating through the array with .includes or .some resulted in false all the time. so i had to make a new function
+function checkArrayForQuote() {
+    let i = 0;
+    for (let quote of savedQuotes2) {
+        if (quote.content.includes(apiText)) {
+            i++;
+        }
+    }
+    if (i > 0) {return true};
+}
+
+function findIndexOfQuote(text) {
+    let i = 0;
+    for (let quote of savedQuotes2) {
+        if (quote.content === text) {
+            return i;
+        } else {
+            i++;
+        }
+    }
+    return undefined;
 }
 
 function theme1() {
@@ -167,6 +174,12 @@ function theme3() {
     $("div#date").attr("class", "theme3");
     $("table").attr("class", "theme3");
     $("tbody").attr("class", "theme3");
+}
+
+function dark() {
+    $("body").attr("class", "dark");
+    document.querySelector("tbody").classList.add("dark");
+    $("div#date").attr("class", "dark");
 }
 
 function setUpQuote() {
@@ -210,6 +223,8 @@ function setUpQuote() {
 }
 
 theme2();
+dark();
+checkArrayForQuote();
 
 
 ////////////////////////////////////////
