@@ -40,11 +40,12 @@ $("div#test").on("click", function (e) {
         if ($userInput.val()) {
             let $tbody = $(e.target.parentNode.parentNode.parentNode.parentNode.children[1]);
             let newTask = `<tr class="${savedListStr}"><td class="list"><p class="${savedListStr}">${$userInput.val()}<p></td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`;
-            //Get the h3 element in thead and use it as title
-            let listTitle = e.target.parentNode.parentNode.parentNode.parentNode.children[0].firstElementChild.firstElementChild.innerText;
             $tbody.append(newTask);
             $userInput.val("");
-            savedList2.push({title: listTitle, content: newTask});
+            let tableTime = e.target.closest("table").classList[0]
+            if (checkListForTime(savedList2, tableTime)) {
+                savedList2[findIndexOfTime(tableTime, savedList2)].content.push(newTask);
+            }
             saveToStorage(savedList2, savedListStr2);
         }
     }
@@ -90,7 +91,7 @@ $('#addList').on("click", function(evt) {
         </tr>
     </tfoot>
 </table>`);
-    savedList2.push({title: "Click To Edit Title", content: "", timestamp: (month+day+year+time)})
+    savedList2.push({title: "Click To Edit Title", content: [], timestamp: (month+day+year+time)})
 });
 
 //edit title on click
