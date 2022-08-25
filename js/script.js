@@ -61,16 +61,16 @@ $("tbody").on("click", "#remove", function (evt) {
 $("input[type=radio]").on("click", function (evt) {
     switch (evt.target.value) {
         case "theme1":
-            theme1();
             storage.setItem("theme", 1);
+            theme1();
             break;
         case "theme2":
-            theme2();
             storage.setItem("theme", 2);
+            theme2();
             break;
         case "theme3":
-            theme3();
             storage.setItem("theme", 3);
+            theme3();
             break;
         default:
             break;
@@ -234,6 +234,26 @@ function setUpTheme() {
         dark.toggleDark();
         $("input[type='checkbox']").attr("checked", "true");
     }
+    switch (savedTheme) {
+        case "1":
+            theme1();
+            $("input[value='theme1']").attr("checked", "true");
+            break;
+        case "2":
+            theme2();
+            $("input[value='theme2']").attr("checked", "true");
+            break;
+        case "3":
+            theme3();
+            $("input[value='theme3']").attr("checked", "true");
+            break;
+        default:
+            break;
+    }
+}
+
+function renderTheme() {
+    savedTheme = storage.getItem("theme");
     switch (savedTheme) {
         case "1":
             theme1();

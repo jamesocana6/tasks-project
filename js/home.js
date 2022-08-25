@@ -87,6 +87,7 @@ $('#addList').on("click", function(evt) {
     </tfoot>
 </table>`);
     savedList2.push({title: "Click To Edit Title", content: [], timestamp: (month+day+year+time)})
+    renderTheme();
 });
 
 //edit title on click
