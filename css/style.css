@@ -71,6 +71,15 @@ thead, tfoot {
     border: 0;
 }
 
+thead#tableTitle > tr > th > button {
+    display: none;
+    margin-left: 90%;
+} 
+
+thead > tr:hover > th > button#remove {
+    display: table-cell;
+}
+
 tbody > tr > td > button {
     display: none;
 }

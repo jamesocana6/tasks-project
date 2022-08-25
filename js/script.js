@@ -1,5 +1,5 @@
 
-let URL3 = "https://api.quotable.io/random"
+let URL3 = "https://api.quotable.io/random" //CONNECTED! 
 
 let URL2 = "https://quotes.rest/qod.json?language=en" //CONNECTED! 
 
@@ -29,6 +29,7 @@ let savedList2 = JSON.parse(storage.getItem("savedList2")) || [];
 let savedQuotes = JSON.parse(storage.getItem("savedQuote")) || [];
 let savedQuestions = JSON.parse(storage.getItem("savedQuestion")) || [];
 let firstList = storage.getItem("clicked") || "false";
+let firstNote = storage.getItem("clickedNote") || "false";
 
 //ELEMENTS//
 let $tfoot = $("tfoot");
@@ -38,24 +39,6 @@ let $savedAlert = $("#saved");
 
 
 //ONCLICK EVENTS//
-// //remove on click
-// $("tbody").on("click", "#remove", function (evt) {
-//     if (this.closest("tr").getAttribute("class") === savedListStr2) {
-//         // $(this).closest("tr").remove();
-//         // let allListTags = document.querySelectorAll(`p.${savedListStr}`);
-//         // savedList = [];
-//         // allListTags.forEach(function(quote) {
-//         //     savedList.push(quote.innerText);
-//         // });
-//         savedList2.splice(findIndexOfContent(evt.target.closest("tr").firstElementChild.firstElementChild.innerText, savedList2), 1);
-//         $(this).closest("tr").remove();
-//         saveToStorage(savedList2, savedListStr2);
-//     } else if (this.closest("tr").getAttribute("class") === savedQuotesStr) {
-//         savedQuotes.splice(findIndexOfContent(evt.target.closest("tr").firstElementChild.firstElementChild.innerText, savedQuotes), 1);
-//         $(this).closest("tr").remove();
-//     }
-//     saveToStorage(savedQuotes, savedQuotesStr);
-// });
 //remove on click
 $("div#test").on("click", function (evt) {
     if (evt.target.id === "remove") {
@@ -63,23 +46,24 @@ $("div#test").on("click", function (evt) {
         let tableTime = evt.target.closest("table").classList[0]
         let itemToBeRemoved = evt.target.closest("tr").firstElementChild.firstElementChild.innerText;
         if (evt.target.closest("tr").getAttribute("class") === savedListStr2) {
-            // $(evt.target).closest("tr").remove();
-            // let allListTags = document.querySelectorAll(`p.${savedListStr}`);
-            // savedList = [];
-            // allListTags.forEach(function(quote) {
-            //     savedList.push(quote.innerText);
-            // });
-            // savedList2.splice(findIndexOfContent(evt.target.closest("tr").firstElementChild.firstElementChild.innerText, savedList2), 1);
             if (checkListForTime(savedList2, tableTime)) {
                 let indexOfContent = savedList2[findIndexOfTime(tableTime, savedList2)].content.indexOf(itemToBeRemoved);
                 savedList2[findIndexOfTime(tableTime, savedList2)].content.splice(indexOfContent, 1);
                 $(evt.target).closest("tr").remove();
+                saveToStorage(savedList2, savedListStr2);
             }
         } else if (evt.target.closest("tr").getAttribute("class") === savedQuotesStr) {
             savedQuotes.splice(findIndexOfContent(evt.target.closest("tr").firstElementChild.firstElementChild.innerText, savedQuotes), 1);
             $(evt.target).closest("tr").remove();
+            saveToStorage(savedQuotes, savedQuotesStr);
+        } else if (evt.target.closest("thead").id === "tableTitle") {
+            console.log("true");
+            if (checkListForTime(savedList2, tableTime)) {
+                savedList2.splice(findIndexOfTime(tableTime, savedList2), 1);
+                $(evt.target).closest("table").remove();
+                saveToStorage(savedList2, savedListStr2);
+            }
         }
-        saveToStorage(savedQuotes, savedQuotesStr);
     }
 });
 
@@ -126,14 +110,6 @@ $("input[type=checkbox]").on("click", function (evt) {
 
 //FUNCTIONS//
 //populates the list that I want to populate
-function populateList(list, listStr) {
-    if (list.length > 0) {
-        list.forEach(function (item) {
-            $("tbody").append(`<tr class="${listStr}"><td><p class="${listStr}">${item}</p></td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`)
-        });
-    }
-}
-
 function populateLists(list, listStr) {
     if (list.length > 0) {
         list.forEach(function (item) {
@@ -142,6 +118,9 @@ function populateLists(list, listStr) {
         <tr id="tableTitle">
             <th id="tableTitle">
                 <h3 id="tableTitle">${item.title}</h3>
+            </th>
+            <th>
+                <button id="remove">X</button>
             </th>
         </tr>
     </thead>
@@ -180,7 +159,7 @@ function populateQuote(list, listStr) {
     });
     if (list.length > 0) {
         list.forEach(function (item) {
-            $("tbody").append(`<tr class="${listStr}"><td><p class="${listStr}">${item.content}</p></td><td><p>${item.author}</p></td><td><button id="remove">X</button></td></tr>`);
+            $("tbody.quotes").append(`<tr class="${listStr}"><td><p class="${listStr}">${item.content}</p></td><td><p>${item.author}</p></td><td><button id="remove">X</button></td></tr>`);
         });
     }
 }

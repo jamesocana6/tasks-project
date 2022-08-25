@@ -80,6 +80,9 @@ $('#addList').on("click", function(evt) {
             <th id="tableTitle">
                 <h3 id="tableTitle">Click To Edit Title</h3>
             </th>
+            <th>
+                <button id="remove">X</button>
+            </th>
         </tr>
     </thead>
     <tbody>
