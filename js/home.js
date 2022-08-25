@@ -3,32 +3,27 @@ setUpQuote();
 
 //ON CLICK EVENTS//
 //edit on click
-$("tbody").on("click", "#edit", function (evt) {
+$("div#test").on("click", function (evt) {
     event.preventDefault();
-    console.log(evt.target);
-    evt.target.setAttribute("disabled", "true");
-    //console.log(evt.target.closest("tr").firstElementChild.innerText)
-    let editInput = `<td><input id="enter" type="text" value="${evt.target.closest("tr").firstElementChild.innerText}"></td>`;
-    console.log(evt.target.closest("tr").firstElementChild.innerHTML)
-    evt.target.closest("tr").firstElementChild.innerHTML = editInput;
-    $("tbody").on("keydown", "input#enter", function(evt) {
-        if (evt.key === "Enter") {
-            event.preventDefault();
-            console.log(evt.target.value);
-            console.log(evt.target.parentNode.innerHTML);
-            evt.target.parentNode.innerHTML = `<p class="${savedListStr}">${evt.target.value}</p>`
-            $('button#edit').removeAttr("disabled");
-            let allListTags = document.querySelectorAll(`p.${savedListStr}`);
-            console.log(allListTags);
-            savedList = [];
-            allListTags.forEach(function(quote) {
-                savedList.push(quote.innerText);
-                console.log(quote.innerText)
-            });
-            console.log(savedList)
-            saveToStorage(savedList, savedListStr);
-        }
-    });
+    if (evt.target.id === "edit") {
+        evt.target.setAttribute("disabled", "true");
+        let editThis = evt.target.closest("tr").firstElementChild.innerText;
+        let editInput = `<td><input id="enter" type="text" value="${evt.target.closest("tr").firstElementChild.innerText}"></td>`;
+        let tableTime = evt.target.closest("table").classList[0];
+        evt.target.closest("tr").firstElementChild.innerHTML = editInput;
+        $("tbody").on("keydown", function(evt) {
+            if (evt.key === "Enter") {
+                event.preventDefault();
+                if (checkListForTime(savedList2, tableTime)) {
+                    let indexOfContent = savedList2[findIndexOfTime(tableTime, savedList2)].content.indexOf(editThis);
+                    savedList2[findIndexOfTime(tableTime, savedList2)].content[indexOfContent] = evt.target.value;
+                }
+                evt.target.parentNode.innerHTML = `<p class="${savedListStr}">${evt.target.value}</p>`
+                $('button#edit').removeAttr("disabled");
+                saveToStorage(savedList2, savedListStr2);
+            }
+        });
+    } 
 });
 
 //EVENT DELEGATION BECAUSE EVENTS DONT DYNAMICALLY ADD TO NEW ELEMNTS 
@@ -41,11 +36,11 @@ $("div#test").on("click", function (e) {
             let $tbody = $(e.target.parentNode.parentNode.parentNode.parentNode.children[1]);
             let newTask = `<tr class="${savedListStr}"><td class="list"><p class="${savedListStr}">${$userInput.val()}<p></td><td><button id="edit">edit</button></td><td><button id="remove">X</button></td></tr>`;
             $tbody.append(newTask);
-            $userInput.val("");
             let tableTime = e.target.closest("table").classList[0]
             if (checkListForTime(savedList2, tableTime)) {
-                savedList2[findIndexOfTime(tableTime, savedList2)].content.push(newTask);
+                savedList2[findIndexOfTime(tableTime, savedList2)].content.push($userInput.val());
             }
+            $userInput.val("");
             saveToStorage(savedList2, savedListStr2);
         }
     }

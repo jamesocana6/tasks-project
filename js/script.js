@@ -168,6 +168,18 @@ function findIndexOfContent(text, objectArray) {
     return undefined;
 }
 
+function findIndexOfContentList(text, objectArray) {
+    let i = 0;
+    for (let quote of objectArray) {
+        if (quote.content.includes(text)) {
+            return i;
+        } else {
+            i++;
+        }
+    }
+    return undefined;
+}
+
 function findIndexOfTime(text, objectArray) {
     let i = 0;
     for (let quote of objectArray) {
