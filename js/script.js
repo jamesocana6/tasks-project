@@ -10,7 +10,6 @@ let URL = "https://random-interview.herokuapp.com/question/random" //CONNECTED!
 //CONSTANTS//
 const savedListStr = "savedList";
 const savedQuotesStr = "savedQuote";
-const savedQuotesStr2 = "savedQuote2";
 const savedQuestionsStr = "savedQuestion";
 const date = new Date();
 let apiText = "";
@@ -23,7 +22,7 @@ let storage = localStorage;
 //storage.clear();
 let userInput = document.querySelector("input");
 let savedList = JSON.parse(storage.getItem("savedList")) || [];
-let savedQuotes2 = JSON.parse(storage.getItem("savedQuote2")) || [];
+let savedQuotes = JSON.parse(storage.getItem("savedQuote")) || [];
 let savedQuestions = JSON.parse(storage.getItem("savedQuestion")) || [];
 
 //ELEMENTS//
@@ -57,8 +56,8 @@ $apiQuote.on("click", function (quote) {
         $savedAlert.html("Quote saved!");
         $savedAlert.fadeIn(1000);
         $savedAlert.fadeOut(3000);
-        savedQuotes2.push({content: apiText, author: apiAuthor});
-        saveToStorage(savedQuotes2, savedQuotesStr2);
+        savedQuotes.push({content: apiText, author: apiAuthor});
+        saveToStorage(savedQuotes, savedQuotesStr);
     }
     //console.log("clicked the API quote");
 });
@@ -73,11 +72,11 @@ $("tbody").on("click", "#remove", function (evt) {
             savedList.push(quote.innerText);
         });
         saveToStorage(savedList, savedListStr);
-    } else if (this.closest("tr").getAttribute("class") === savedQuotesStr2) {
-        savedQuotes2.splice(findIndexOfQuote(evt.target.closest("tr").firstElementChild.firstElementChild.innerText),1);
+    } else if (this.closest("tr").getAttribute("class") === savedQuotesStr) {
+        savedQuotes.splice(findIndexOfQuote(evt.target.closest("tr").firstElementChild.firstElementChild.innerText),1);
         $(this).closest("tr").remove();
     }
-    saveToStorage(savedQuotes2, savedQuotesStr2);
+    saveToStorage(savedQuotes, savedQuotesStr);
 });
 
 //edit on click
@@ -109,6 +108,38 @@ $("tbody").on("click", "#edit", function (evt) {
     });
 });
 
+//change the theme onclick radio button
+$("input[type=radio]").on("click", function(evt) {
+    switch (evt.target.value) {
+        case "theme1":
+            theme1();
+            break;
+        case "theme2":
+            theme2();
+            break;
+        case "theme3":
+            theme3();
+            break;
+        default:
+            break;
+    }
+});
+
+//toggle dark mode onclick
+$("input[type=checkbox]").on("click", function(evt) {
+    switch (evt.target.checked) {
+        case true:
+            dark.toggleDark();
+            break;
+        case false:
+            dark.toggleDark();
+            break;
+        default:
+            break;
+    }
+});
+
+
 //FUNCTIONS//
 //populates the list that I want to populate
 function populateList(list, listStr) {
@@ -135,7 +166,7 @@ function saveToStorage(array, arrayStr) {
 //iterating through the array with .includes or .some resulted in false all the time. so i had to make a new function
 function checkArrayForQuote() {
     let i = 0;
-    for (let quote of savedQuotes2) {
+    for (let quote of savedQuotes) {
         if (quote.content.includes(apiText)) {
             i++;
         }
@@ -145,7 +176,7 @@ function checkArrayForQuote() {
 
 function findIndexOfQuote(text) {
     let i = 0;
-    for (let quote of savedQuotes2) {
+    for (let quote of savedQuotes) {
         if (quote.content === text) {
             return i;
         } else {
@@ -249,8 +280,8 @@ function setUpQuote() {
     }
 }
 
-theme2();
-dark.toggleDark();
+//theme2();
+//dark.toggleDark();
 
 ////////////////////////////////////////
 //APIs for quotes are connected//

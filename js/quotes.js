@@ -1,4 +1,4 @@
-populateQuote(savedQuotes2, savedQuotesStr2);
+populateQuote(savedQuotes, savedQuotesStr);
 
 $("tbody > tr").hover(function(evt) {
     // $(evt.target).closest("tr").css("backgroundColor", "lightgreen");
