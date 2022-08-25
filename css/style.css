@@ -17,9 +17,15 @@
     --theme3-border: #49516f;
     --theme3-nav-active: #6279b8;
     --theme3-hover: #a1b6e4;
+    --theme4-nav: #1f9b36;
+    --theme4-border: #325431;
+    --theme4-nav-active: #0a611a;
+    --theme4-hover: #059603;
     --theme-dark: #373737;
     --theme-dark-text: rgb(196, 196, 196);
     --theme-dark-hover: rgb(69, 69, 69);
+    --button-hover: #646464;
+    --button-color: #c6c6c6;
 }
 
 div#test {
@@ -41,25 +47,6 @@ div#themes {
     right: 15%;
     justify-content: space-evenly;
     margin: 50px 0;
-}
-
-.addSomethingBtn {
-    position: absolute;
-    right: 100px;
-    border-radius: 50%;
-    text-align: center;
-    height: 35px;
-    width: 35px;
-    border: 2px solid;
-    font-size: x-large;
-    border-color: var(--theme-dark-text);
-    color: var(--theme-dark-text);
-    background-color: var(--theme-dark);
-}
-.addSomethingBtn:hover {
-    border-color: var(--theme-dark-hover);
-    color: var(--theme-dark-hover);
-    background-color: var(--theme2-hover);
 }
 
 /* TABLE FORMATTING */
@@ -164,63 +151,83 @@ span {
 }
 
 /* THEME1 */
-nav.theme1 {
+nav[theme="1"] {
     background-color: var(--theme1-nav);
 }
-nav.theme1 > a.disabled {
+nav[theme="1"] > a.disabled {
     background-color: var(--theme1-nav-active);
 }
-div#date.theme1 {
+div#date[theme="1"] {
     color: var(--theme1-border);
 }
-tbody.theme1 > tr {
+tbody[theme="1"] > tr {
     border-color: var(--theme1-border);
 }
-table.theme1 {
+table[theme="1"] {
     border-color: var(--theme1-border);
 }
-tbody.theme1 > tr:hover {
+tbody[theme="1"] > tr:hover {
     background-color: var(--theme1-hover);
 }
 
 /* THEME2 */
-nav.theme2 {
+nav[theme="2"] {
     background-color: var(--theme2-nav);
 }
-nav.theme2 > a.disabled {
+nav[theme="2"] > a.disabled {
     background-color: var(--theme2-nav-active);
 }
-div#date.theme2 {
+div#date[theme="2"] {
     color: var(--theme2-border);
 }
-tbody.theme2 > tr {
+tbody[theme="2"] > tr {
     border-color: var(--theme2-border);
 }
-table.theme2 {
+table[theme="2"] {
     border-color: var(--theme2-border);
 }
-tbody.theme2 > tr:hover {
+tbody[theme="2"] > tr:hover {
     background-color: var(--theme2-hover);
 }
 
 /* THEME3 */
-nav.theme3 {
+nav[theme="3"] {
     background-color: var(--theme3-nav);
 }
-nav.theme3 > a.disabled {
+nav[theme="3"] > a.disabled {
     background-color: var(--theme3-nav-active);
 }
-div#date.theme3 {
+div#date[theme="3"] {
     color: var(--theme3-border);
 }
-tbody.theme3 > tr {
+tbody[theme="3"] > tr {
     border-color: var(--theme3-border);
 }
-table.theme3 {
+table[theme="3"] {
     border-color: var(--theme3-border);
 }
-tbody.theme3 > tr:hover {
+tbody[theme="3"] > tr:hover {
     background-color: var(--theme3-hover);
+}
+
+/* THEME4 */
+nav[theme="4"] {
+    background-color: var(--theme4-nav);
+}
+nav[theme="4"] > a.disabled {
+    background-color: var(--theme4-nav-active);
+}
+div#date[theme="4"] {
+    color: var(--theme4-border);
+}
+tbody[theme="4"] > tr {
+    border-color: var(--theme4-border);
+}
+table[theme="4"] {
+    border-color: var(--theme4-border);
+}
+tbody[theme="4"] > tr:hover {
+    background-color: var(--theme4-hover);
 }
 
 /* DARK */
@@ -233,4 +240,23 @@ tbody.dark > tr:hover {
 }
 div#date.dark {
     color: rgb(196, 196, 196);
+}
+
+.addSomethingBtn {
+    position: absolute;
+    right: 100px;
+    border-radius: 50%;
+    text-align: center;
+    height: 35px;
+    width: 35px;
+    border: 2px solid;
+    font-size: x-large;
+    border-color: var(--theme-dark-hover);
+    color: var(--theme-dark-hover);
+    background-color: var(--button-color);
+}
+.addSomethingBtn:hover {
+    border-color: var(--theme-dark-text);
+    color: var(--theme-dark-text);
+    background-color: var(--button-hover);
 }

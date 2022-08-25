@@ -72,6 +72,10 @@ $("input[type=radio]").on("click", function (evt) {
             storage.setItem("theme", 3);
             theme3();
             break;
+        case "theme4":
+            storage.setItem("theme", 4);
+            theme4();
+            break;
         default:
             break;
     }
@@ -193,38 +197,50 @@ function findIndexOfTime(text, objectArray) {
 }
 
 function theme1() {
-    $("nav").attr("class", "theme1");
-    $("table").attr("class", "theme1");
+    $("nav").attr("theme", "1");
+    $("table").attr("theme", "1");
     if (dark.isActive) {
-        $("div#date").attr("class", "theme1 dark");
-        $("tbody").attr("class", "theme1 dark");
+        $("div#date").attr("theme", "1 dark");
+        $("tbody").attr("theme", "1 dark");
     } else {
-        $("div#date").attr("class", "theme1");
-        $("tbody").attr("class", "theme1");
+        $("div#date").attr("theme", "1");
+        $("tbody").attr("theme", "1");
     }
 }
 
 function theme2() {
-    $("nav").attr("class", "theme2");
-    $("table").attr("class", "theme2");
+    $("nav").attr("theme", "2");
+    $("table").attr("theme", "2");
     if (dark.isActive) {
-        $("div#date").attr("class", "theme2 dark");
-        $("tbody").attr("class", "theme2 dark");
+        $("div#date").attr("theme", "2 dark");
+        $("tbody").attr("theme", "2 dark");
     } else {
-        $("div#date").attr("class", "theme2");
-        $("tbody").attr("class", "theme2");
+        $("div#date").attr("theme", "2");
+        $("tbody").attr("theme", "2");
     }
 }
 
 function theme3() {
-    $("nav").attr("class", "theme3");
-    $("table").attr("class", "theme3");
+    $("nav").attr("theme", "3");
+    $("table").attr("theme", "3");
     if (dark.isActive) {
-        $("div#date").attr("class", "theme3 dark");
-        $("tbody").attr("class", "theme3 dark");
+        $("div#date").attr("theme", "3 dark");
+        $("tbody").attr("theme", "3 dark");
     } else {
-        $("div#date").attr("class", "theme3");
-        $("tbody").attr("class", "theme3");
+        $("div#date").attr("theme", "3");
+        $("tbody").attr("theme", "3");
+    }
+}
+
+function theme4() {
+    $("nav").attr("theme", "4");
+    $("table").attr("theme", "4");
+    if (dark.isActive) {
+        $("div#date").attr("theme", "4 dark");
+        $("tbody").attr("theme", "4 dark");
+    } else {
+        $("div#date").attr("theme", "4");
+        $("tbody").attr("theme", "4");
     }
 }
 
@@ -247,6 +263,10 @@ function setUpTheme() {
             theme3();
             $("input[value='theme3']").attr("checked", "true");
             break;
+        case "4":
+            theme4();
+            $("input[value='theme4']").attr("checked", "true");
+            break;
         default:
             break;
     }
@@ -266,6 +286,10 @@ function renderTheme() {
         case "3":
             theme3();
             $("input[value='theme3']").attr("checked", "true");
+            break;
+        case "4":
+            theme4();
+            $("input[value='theme4']").attr("checked", "true");
             break;
         default:
             break;
@@ -332,12 +356,7 @@ const dark = {
     },
 }
 
-
-
 setUpTheme();
-
-//theme2();
-//dark.toggleDark();
 
 ////////////////////////////////////////
 //APIs for quotes are connected//
