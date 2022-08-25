@@ -18,6 +18,8 @@
     --theme3-nav-active: #6279b8;
     --theme3-hover: #a1b6e4;
     --theme-dark: #373737;
+    --theme-dark-text: rgb(196, 196, 196);
+    --theme-dark-hover: rgb(69, 69, 69);
 }
 
 div#test {
@@ -39,6 +41,25 @@ div#themes {
     right: 15%;
     justify-content: space-evenly;
     margin: 15px 0;
+}
+
+.addSomethingBtn {
+    position: absolute;
+    right: 100px;
+    border-radius: 50%;
+    text-align: center;
+    height: 35px;
+    width: 35px;
+    border: 2px solid;
+    font-size: x-large;
+    border-color: var(--theme-dark-text);
+    color: var(--theme-dark-text);
+    background-color: var(--theme-dark);
+}
+.addSomethingBtn:hover {
+    border-color: var(--theme-dark-hover);
+    color: var(--theme-dark-hover);
+    background-color: var(--theme2-hover);
 }
 
 /* TABLE FORMATTING */

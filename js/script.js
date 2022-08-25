@@ -22,7 +22,7 @@ let storage = localStorage;
 //storage.clear();
 let savedDark = storage.getItem("darkMode") || "false";
 let savedTheme = storage.getItem("theme") || 0;
-let userInput = document.querySelector("input");
+let userInput = document.querySelector("input#user");
 let savedList = JSON.parse(storage.getItem("savedList")) || [];
 let savedQuotes = JSON.parse(storage.getItem("savedQuote")) || [];
 let savedQuestions = JSON.parse(storage.getItem("savedQuestion")) || [];
