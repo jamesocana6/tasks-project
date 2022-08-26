@@ -20,7 +20,7 @@ const monthName = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"
 let month = monthName[date.getMonth()];
 let year = date.getFullYear();
 let storage = localStorage;
-storage.clear();
+//storage.clear();
 let savedDark = storage.getItem("darkMode") || "false";
 let savedTheme = storage.getItem("theme") || 0;
 let $userInput = $("input.user");
