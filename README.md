@@ -28,12 +28,12 @@ A conglomeration of newly learned skills. Showcased in a simple to-do list app. 
 * Users can save quotes and browse through them in the quotes tab.
 * Users can change the theme of the layout.
 
-## Whiteboard Images
+## Whiteboard
 <img width="1067" alt="Screen Shot 2022-08-25 at 9 10 46 PM" src="https://user-images.githubusercontent.com/110359807/186795312-12964437-2422-48a3-a801-2e6e216367e2.png">
 <img width="1074" alt="Screen Shot 2022-08-25 at 9 14 36 PM" src="https://user-images.githubusercontent.com/110359807/186795653-b397c14c-9757-4b60-b447-06a58ad63df4.png">
 
 
-## Trello Planning
+## Trello
 * https://trello.com/b/tuyvkspk/tasks
 
 ## <a name="design"></a>Design
