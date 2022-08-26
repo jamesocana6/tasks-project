@@ -1,3 +1,7 @@
+/* <!-- LIGHT MODE WOOD http://unblast.com/wp-content/uploads/2020/05/Light-Wood-Background-Texture-1.jpg -->
+<!-- DARK MODE WOOD https://www.pixelstalk.net/wp-content/uploads/2016/06/Dark-Woods-Backgrounds.jpg --> */
+
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -28,6 +32,11 @@
     --button-color: #c6c6c6;
 }
 
+body {
+    background-image: url("http://unblast.com/wp-content/uploads/2020/05/Light-Wood-Background-Texture-1.jpg");
+    font-size: larger;
+}
+
 div#test {
     display: flex;
     justify-content: center;
@@ -42,11 +51,13 @@ div#title {
 
 div#themes {
     display: flex;
-    position: absolute fixed;
+    position: absolute;
+    bottom: 0;
     left: 15%;
     right: 15%;
     justify-content: space-evenly;
     margin: 50px 0;
+    font-size: medium;
 }
 
 /* TABLE FORMATTING */
@@ -58,6 +69,7 @@ table {
     border-collapse: collapse;
     margin: 10px;
     margin-top: 50px;
+    background-color: white;
 }
 
 table#todolist {
@@ -73,7 +85,11 @@ thead, tfoot {
 
 thead#tableTitle > tr > th > button {
     display: none;
-    margin-left: 90%;
+
+} 
+thead#tableTitle > tr > th {
+    max-width: fit-content;
+    width: 100%;
 } 
 
 thead > tr:hover > th > button#remove {
@@ -113,6 +129,7 @@ nav {
     background-color: rgb(117, 214, 117);
     align-items: center;
     height: 50px;
+    opacity: 80%;
 }
 
 nav > a {
@@ -120,6 +137,7 @@ nav > a {
     color: black;
     max-height: 50px;
     padding: 15px 3%;
+    opacity: 100%;
 }
 
 nav > a.disabled {
@@ -133,14 +151,16 @@ nav > a.disabled {
 div#date {
     display: flex;
     flex-flow: column;
-    color: rgb(98, 98, 98);
+    color: rgb(26, 26, 26);
     font-weight: bold;
     text-align: center;
     width: fit-content;
     position: absolute;
     right: 0;
     padding: 10px;
+    border-radius: 3px;
 }
+
 div#date > p#day {
     font-size: xx-large;
 }
@@ -169,6 +189,9 @@ nav[theme="1"] > a.disabled {
 div#date[theme="1"] {
     color: var(--theme1-border);
 }
+div#date[theme="1 dark"] {
+    color: var(--theme1-hover);
+}
 tbody[theme="1"] > tr {
     border-color: var(--theme1-border);
 }
@@ -176,6 +199,11 @@ tbody[theme="1 dark"] > tr {
     border-color: var(--theme1-border);
 }
 table[theme="1"] {
+    border-color: var(--theme1-border);
+}
+table[theme="1 dark"] {
+    color: white;
+    background-color: var(--theme-dark);
     border-color: var(--theme1-border);
 }
 tbody[theme="1"] > tr:hover {
@@ -195,6 +223,9 @@ nav[theme="2"] > a.disabled {
 div#date[theme="2"] {
     color: var(--theme2-border);
 }
+div#date[theme="2 dark"] {
+    color: var(--theme2-hover);
+}
 tbody[theme="2"] > tr {
     border-color: var(--theme2-border);
 }
@@ -202,6 +233,11 @@ tbody[theme="2 dark"] > tr {
     border-color: var(--theme2-border);
 }
 table[theme="2"] {
+    border-color: var(--theme2-border);
+}
+table[theme="2 dark"] {
+    color: white;
+    background-color: var(--theme-dark);
     border-color: var(--theme2-border);
 }
 tbody[theme="2"] > tr:hover {
@@ -221,6 +257,9 @@ nav[theme="3"] > a.disabled {
 div#date[theme="3"] {
     color: var(--theme3-border);
 }
+div#date[theme="3 dark"] {
+    color: var(--theme3-hover);
+}
 tbody[theme="3"] > tr {
     border-color: var(--theme3-border);
 }
@@ -228,6 +267,11 @@ tbody[theme="3 dark"] > tr {
     border-color: var(--theme3-border);
 }
 table[theme="3"] {
+    border-color: var(--theme3-border);
+}
+table[theme="3 dark"] {
+    color: white;
+    background-color: var(--theme-dark);
     border-color: var(--theme3-border);
 }
 tbody[theme="3"] > tr:hover {
@@ -247,6 +291,9 @@ nav[theme="4"] > a.disabled {
 div#date[theme="4"] {
     color: var(--theme4-border);
 }
+div#date[theme="4 dark"] {
+    color: var(--theme4-hover);
+}
 tbody[theme="4"] > tr {
     border-color: var(--theme4-border);
 }
@@ -254,6 +301,11 @@ tbody[theme="4 dark"] > tr {
     border-color: var(--theme4-border);
 }
 table[theme="4"] {
+    border-color: var(--theme4-border);
+}
+table[theme="4 dark"] {
+    color: white;
+    background-color: var(--theme-dark);
     border-color: var(--theme4-border);
 }
 tbody[theme="4"] > tr:hover {
@@ -265,18 +317,18 @@ tbody[theme="4 dark"] > tr:hover {
 
 /* DARK */
 body[theme="dark"] {
-    background-color: var(--theme-dark);
+    background-image: url("https://www.pixelstalk.net/wp-content/uploads/2016/06/Dark-Woods-Backgrounds.jpg");
     color: rgb(196, 196, 196);
 }
 tbody[theme="dark"] > tr:hover {
     color: rgb(69, 69, 69);
 }
 div#date[theme="dark"] {
-    color: rgb(196, 196, 196);
+    color: var(--theme-dark-text)
 }
 
 body[theme="1 dark"] {
-    background-color: var(--theme-dark);
+    background-image: url("https://www.pixelstalk.net/wp-content/uploads/2016/06/Dark-Woods-Backgrounds.jpg");
     color: rgb(196, 196, 196);
 }
 tbody[theme="1 dark"] > tr:hover {
@@ -287,7 +339,7 @@ div#date[theme="1 dark"] {
 }
 
 body[theme="2 dark"] {
-    background-color: var(--theme-dark);
+    background-image: url("https://www.pixelstalk.net/wp-content/uploads/2016/06/Dark-Woods-Backgrounds.jpg");
     color: rgb(196, 196, 196);
 }
 tbody[theme="2 dark"] > tr:hover {
@@ -298,7 +350,7 @@ div#date[theme="2 dark"] {
 }
 
 body[theme="3 dark"] {
-    background-color: var(--theme-dark);
+    background-image: url("https://www.pixelstalk.net/wp-content/uploads/2016/06/Dark-Woods-Backgrounds.jpg");
     color: rgb(196, 196, 196);
 }
 tbody[theme="3 dark"] > tr:hover {
@@ -309,7 +361,7 @@ div#date[theme="3 dark"] {
 }
 
 body[theme="4 dark"] {
-    background-color: var(--theme-dark);
+    background-image: url("https://www.pixelstalk.net/wp-content/uploads/2016/06/Dark-Woods-Backgrounds.jpg");
     color: rgb(196, 196, 196);
 }
 tbody[theme="4 dark"] > tr:hover {
@@ -336,6 +388,10 @@ div#date[theme="4 dark"] {
     border-color: var(--theme-dark-text);
     color: var(--theme-dark-text);
     background-color: var(--button-hover);
+}
+
+table[theme="dark"] {
+    background-color: var(--theme-dark);
 }
 
 p#placeholder {

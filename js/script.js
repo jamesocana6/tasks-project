@@ -20,7 +20,7 @@ const monthName = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"
 let month = monthName[date.getMonth()];
 let year = date.getFullYear();
 let storage = localStorage;
-//storage.clear();
+storage.clear();
 let savedDark = storage.getItem("darkMode") || "false";
 let savedTheme = storage.getItem("theme") || 0;
 let $userInput = $("input.user");
@@ -228,49 +228,53 @@ function findIndexOfTime(text, objectArray) {
 
 function theme1() {
     $("nav").attr("theme", "1");
-    $("table").attr("theme", "1");
     if (dark.isActive) {
         $("div#date").attr("theme", "1 dark");
         $("tbody").attr("theme", "1 dark");
+        $("table").attr("theme", "1 dark");
     } else {
         $("div#date").attr("theme", "1");
         $("tbody").attr("theme", "1");
+        $("table").attr("theme", "1");
     }
 }
 
 function theme2() {
     $("nav").attr("theme", "2");
-    $("table").attr("theme", "2");
     if (dark.isActive) {
         $("div#date").attr("theme", "2 dark");
         $("tbody").attr("theme", "2 dark");
+        $("table").attr("theme", "2 dark");
     } else {
         $("div#date").attr("theme", "2");
         $("tbody").attr("theme", "2");
+        $("table").attr("theme", "2");
     }
 }
 
 function theme3() {
     $("nav").attr("theme", "3");
-    $("table").attr("theme", "3");
     if (dark.isActive) {
         $("div#date").attr("theme", "3 dark");
         $("tbody").attr("theme", "3 dark");
+        $("table").attr("theme", "3 dark");
     } else {
         $("div#date").attr("theme", "3");
         $("tbody").attr("theme", "3");
+        $("table").attr("theme", "3");
     }
 }
 
 function theme4() {
     $("nav").attr("theme", "4");
-    $("table").attr("theme", "4");
     if (dark.isActive) {
         $("div#date").attr("theme", "4 dark");
         $("tbody").attr("theme", "4 dark");
+        $("table").attr("theme", "4 dark");
     } else {
         $("div#date").attr("theme", "4");
         $("tbody").attr("theme", "4");
+        $("table").attr("theme", "4");
     }
 }
 
@@ -386,13 +390,15 @@ const dark = {
             if(document.querySelector("tbody")) {
                 document.querySelector("tbody").removeAttribute("dark");
                 document.querySelector("div#date").removeAttribute("dark");
+                document.querySelector("table").removeAttribute("dark");
             }
             this.isActive = false;
         } else {
             $("body").attr("theme", "dark");
             if(document.querySelector("tbody")) {
-                document.querySelector("tbody").setAttribute("theme", "dark");
-                document.querySelector("div#date").setAttribute("theme", "dark");
+                document.querySelector("tbody").setAttribute("theme", document.querySelector("tbody").getAttribute("theme") + " dark");
+                document.querySelector("div#date").setAttribute("theme", document.querySelector("div#date").getAttribute("theme") + " dark");
+                $("table").attr("theme", $("table").attr("theme") + " dark");
             }
             this.isActive = true;
         }
