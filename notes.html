@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous" defer></script>
+    <script defer src="./js/script.js"></script>
+    <script defer src="./js/notes.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300&display=swap');
+        </style>
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Tasks</title>
+</head>
+
+<nav>
+    <a href="./index.html">TASKS</a>
+    <a href="./quotes.html">QUOTES</a>
+    <a class="disabled">NOTES</a>
+    <!-- <a href="/tasks">TASKS</a>
+    <a href="/calendar">CALENDAR</a> -->
+</nav>
+
+<body>
+    <div id="date">
+
+    </div>
+    <div id="title">
+        <h1>Notes</h1>
+    </div>
+    <div class="addNote">
+        <input id="newNoteBtn" class="addSomethingBtn" type="button" value="+">
+    </div>
+    <div id="test">
+        <!-- <table class="notes">
+            <thead>
+                <th>NOTE TITLE</th>
+                <th><button id="edit">edit</button></th>
+                <th><button id="remove">X</button></th>
+            </thead>
+            <tbody>
+                <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos at ex eaque ipsum odit,
+                    dolores corrupti necessitatibus accusamus dolore, nemo, expedita nisi! Possimus, porro
+                    numquam laborum aspernatur error delectus eum!
+                </td>
+            </tbody>
+        </table> -->
+    </div>
+
+    <div id="themes">
+        <div>
+            <input type="radio" name="themes" id="theme1" value="theme1">
+            <label for="theme1">Theme 1</label>
+        </div>
+        <div>
+            <input type="radio" name="themes" id="theme2" value="theme2">
+            <label for="theme2">Theme 2</label>
+        </div>
+        <div>
+            <input type="radio" name="themes" id="theme3" value="theme3">
+            <label for="theme3">Theme 3</label>
+        </div>
+        <div>
+            <input type="radio" name="themes" id="theme4" value="theme4">
+            <label for="theme4">Theme 4</label>
+        </div>
+        <div>
+            <input type="checkbox" name="dark" id="dark" value="dark">
+            <label for="dark">Dark Mode</label>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous" defer></script>
+    <script defer src="./js/script.js"></script>
+    <script defer src="./js/home.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300&display=swap');
+        </style>
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Tasks</title>
+</head>
+
+<nav>
+    <a class="disabled">TASKS</a>
+    <a href="./quotes.html">QUOTES</a>
+    <a href="./notes.html">NOTES</a>
+    <!-- <a href="/tasks">TASKS</a>
+    <a href="/calendar">CALENDAR</a> -->
+</nav>
+
+<body>
+    <div id="date">
+
+    </div>
+    <div id="title">
+        <h1>Tasks</h1>
+    </div>
+    <div class="addToDo">
+        <input id="addList" class="addSomethingBtn" type="button" value="+">
+    </div>
+    <div id="test">
+        <!-- <table id="todolist" class="0000">
+            <thead id="tableTitle">
+                <tr id="tableTitle">
+                    <th id="tableTitle">
+                        <h3 id="tableTitle">To Do</h3>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>
+                        <input class="user" type="text" placeholder="Enter a task">
+                    </td>
+                    <td>
+                        <button id="addTaskBtn" type="submit">Add Task</button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table> -->
+    </div>
+
+    <div id="quote">
+        <p id="saved"></p>
+        <p id="apiquote"></p>
+    </div>
+
+    <span style="z-index:50;font-size:0.9em; font-weight: bold;">
+        <img src="https://theysaidso.com/branding/theysaidso.png" height="20" width="20" alt="theysaidso.com" />
+        <a href="https://theysaidso.com" title="Powered by quotes from theysaidso.com"
+            style="color: #ccc; margin-left: 4px; vertical-align: middle;">
+            They Said So®
+        </a>
+    </span>
+
+    
+</body>
+<footer>    
+    <div id="themes">
+        <div>
+            <input type="radio" name="themes" id="theme1" value="theme1">
+            <label for="theme1">Theme 1</label>
+        </div>
+        <div>
+            <input type="radio" name="themes" id="theme2" value="theme2">
+            <label for="theme2">Theme 2</label>
+        </div>
+        <div>
+            <input type="radio" name="themes" id="theme3" value="theme3">
+            <label for="theme3">Theme 3</label>
+        </div>
+        <div>
+            <input type="radio" name="themes" id="theme4" value="theme4">
+            <label for="theme4">Theme 4</label>
+        </div>
+        <div>
+            <input type="checkbox" name="dark" id="dark" value="dark">
+            <label for="dark">Dark Mode</label>
+        </div>
+    </div>
+</footer>
+
+</html>
