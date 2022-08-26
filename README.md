@@ -51,8 +51,10 @@ A conglomeration of newly learned skills. Showcased in a simple to-do list app. 
 * You can view the repository:
 * https://github.com/jamesocana6/tasks-project
     
-## Works Cited:
-* N/A
+## References
+* https://developer.mozilla.org/en-US/
+* https://coolors.co/
+* https://www.w3schools.com/
 
 
 ## <a name="author"></a>About The Author
